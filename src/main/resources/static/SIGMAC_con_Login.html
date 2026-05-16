@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGMAC — Constructora Gonzales Garcia S.R.L.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --primary: #0F2C4E;
+  --primary-mid: #1A4A7A;
+  --primary-light: #2E6DB4;
+  --accent: #E8820C;
+  --accent-light: #FFF0E0;
+  --danger: #C0392B;
+  --danger-light: #FDEDEC;
+  --success: #1A7A4A;
+  --success-light: #E8FAF0;
+  --warning: #D4820A;
+  --warning-light: #FEF6E4;
+  --surface: #F0F3F8;
+  --card: #FFFFFF;
+  --border: #DDE3EE;
+  --text: #111827;
+  --muted: #6B7280;
+  --sidebar-w: 230px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--surface);color:var(--text);display:flex;height:100vh;overflow:hidden;font-size:14px;}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar-w);background:var(--primary);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+.sidebar-brand{padding:20px 18px 18px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.brand-logo{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.logo-icon{width:36px;height:36px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;letter-spacing:-1px;font-family:'JetBrains Mono',monospace;}
+.brand-name{color:#fff;font-size:16px;font-weight:700;letter-spacing:0.3px;}
+.brand-sub{color:var(--accent);font-size:9.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-top:2px;}
+.company-tag{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:7px 10px;font-size:11px;color:rgba(255,255,255,0.65);line-height:1.4;}
+.company-tag strong{color:rgba(255,255,255,0.9);display:block;font-size:11.5px;margin-bottom:1px;}
+.sidebar-nav{flex:1;padding:10px 0;overflow-y:auto;}
+.nav-section{padding:14px 18px 5px;color:rgba(255,255,255,0.3);font-size:9.5px;text-transform:uppercase;letter-spacing:1.2px;font-weight:600;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 18px;color:rgba(255,255,255,0.65);cursor:pointer;transition:all 0.15s;border-left:3px solid transparent;font-size:12.5px;font-weight:500;}
+.nav-item:hover{background:rgba(255,255,255,0.07);color:#fff;}
+.nav-item.active{background:rgba(255,255,255,0.1);color:#fff;border-left-color:var(--accent);}
+.nav-item i{font-size:18px;width:20px;flex-shrink:0;}
+.nav-badge{margin-left:auto;background:var(--danger);color:#fff;font-size:9px;padding:2px 6px;border-radius:10px;font-weight:700;}
+.sidebar-user{padding:14px 18px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px;}
+.user-avatar{width:33px;height:33px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;}
+.user-info p{color:#fff;font-size:12px;font-weight:600;}
+.user-info span{color:rgba(255,255,255,0.45);font-size:11px;}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+/* ── HEADER ── */
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;gap:14px;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+.header-left{display:flex;align-items:center;gap:12px;flex:1;}
+.sigmac-tag{font-size:13px;font-weight:700;color:var(--primary);letter-spacing:0.2px;white-space:nowrap;}
+.header-date{color:var(--muted);font-size:12px;white-space:nowrap;}
+.search-bar{flex:1;max-width:380px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 12px;}
+.search-bar i{color:var(--muted);font-size:17px;}
+.search-bar input{border:none;background:none;outline:none;font-size:12.5px;color:var(--text);width:100%;font-family:inherit;}
+.search-bar input::placeholder{color:var(--muted);}
+.header-right{display:flex;align-items:center;gap:8px;}
+.icon-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:17px;transition:all 0.15s;position:relative;}
+.icon-btn:hover{background:var(--surface);color:var(--primary);}
+.badge{position:absolute;top:-4px;right:-4px;background:var(--danger);color:#fff;font-size:8px;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
+
+/* ── CONTENT ── */
+.content{flex:1;overflow-y:auto;padding:22px 24px;display:none;flex-direction:column;gap:18px;}
+.content.active{display:flex;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px;}
+
+/* ── PAGE HEADER ── */
+.page-header{display:flex;align-items:center;justify-content:space-between;}
+.page-title{font-size:17px;font-weight:700;color:var(--text);}
+.page-sub{font-size:12.5px;color:var(--muted);margin-top:2px;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-mid) 60%,var(--primary-light) 100%);border-radius:12px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.hero::after{content:'';position:absolute;right:60px;bottom:-60px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.03);}
+.hero-text h2{color:#fff;font-size:18px;font-weight:700;margin-bottom:4px;}
+.hero-text p{color:rgba(255,255,255,0.6);font-size:12px;}
+.hero-stats{display:flex;gap:28px;position:relative;z-index:1;}
+.hero-stat .val{color:var(--accent);font-size:22px;font-weight:700;line-height:1;}
+.hero-stat .lbl{color:rgba(255,255,255,0.55);font-size:10.5px;margin-top:4px;}
+
+/* ── STAT CARDS ── */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:10px 10px 0 0;}
+.stat-card.blue::before{background:var(--primary-light);}
+.stat-card.orange::before{background:var(--accent);}
+.stat-card.green::before{background:var(--success);}
+.stat-card.red::before{background:var(--danger);}
+.stat-card.purple::before{background:#7C3AED;}
+.sc-label{color:var(--muted);font-size:11px;margin-bottom:6px;display:flex;align-items:center;gap:5px;font-weight:500;}
+.sc-val{font-size:21px;font-weight:700;color:var(--text);}
+.sc-sub{font-size:11px;margin-top:4px;}
+.sc-sub.up{color:var(--success);}
+.sc-sub.down{color:var(--danger);}
+.sc-sub.neutral{color:var(--muted);}
+
+/* ── CARD ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.card-header{padding:13px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-title{font-size:13.5px;font-weight:600;}
+
+/* ── TABLE ── */
+table{width:100%;border-collapse:collapse;}
+th{padding:9px 14px;text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600;background:var(--surface);}
+td{padding:10px 14px;font-size:12.5px;border-bottom:1px solid #F0F3F7;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#FAFBFD;}
+.mono{font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:11.5px;}
+
+/* ── PILLS & BADGES ── */
+.status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.pill-in{background:var(--success-light);color:var(--success);}
+.pill-out{background:var(--danger-light);color:var(--danger);}
+.pill-warn{background:var(--warning-light);color:var(--warning);}
+.pill-info{background:#EFF6FF;color:var(--primary-light);}
+.stock-badge{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:20px;}
+.stock-ok{background:var(--success-light);color:var(--success);}
+.stock-low{background:var(--warning-light);color:var(--warning);}
+.stock-out{background:var(--danger-light);color:var(--danger);}
+
+/* ── BUTTONS ── */
+.btn-primary{background:var(--primary);color:#fff;border:none;padding:8px 18px;border-radius:7px;font-size:12.5px;font-family:inherit;cursor:pointer;font-weight:600;transition:background 0.15s;display:inline-flex;align-items:center;gap:6px;}
+.btn-primary:hover{background:var(--primary-light);}
+.btn-outline{border:1px solid var(--border);background:var(--card);padding:7px 14px;border-radius:7px;font-size:12px;cursor:pointer;color:var(--text);font-family:inherit;transition:all 0.15s;display:inline-flex;align-items:center;gap:5px;}
+.btn-outline:hover{background:var(--surface);border-color:var(--primary-light);color:var(--primary);}
+.btn-success{background:var(--success);color:#fff;border:none;padding:8px 16px;border-radius:7px;font-size:12.5px;font-family:inherit;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:6px;}
+.btn-danger{background:var(--danger);color:#fff;border:none;padding:8px 16px;border-radius:7px;font-size:12.5px;font-family:inherit;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:6px;}
+
+/* ── FORMS ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-group.full{grid-column:1/-1;}
+label{font-size:11.5px;font-weight:600;color:var(--muted);}
+input[type=text],input[type=number],input[type=date],select,textarea{border:1px solid var(--border);border-radius:7px;padding:8px 11px;font-size:12.5px;font-family:inherit;color:var(--text);background:var(--card);outline:none;transition:border-color 0.15s;width:100%;}
+input:focus,select:focus,textarea:focus{border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(46,109,180,0.1);}
+textarea{resize:vertical;min-height:80px;}
+.form-actions{display:flex;gap:10px;justify-content:flex-end;padding-top:6px;grid-column:1/-1;}
+
+/* ── ALERTS ── */
+.alert{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-radius:10px;border-left:4px solid;transition:box-shadow 0.15s;}
+.alert:hover{box-shadow:0 3px 12px rgba(0,0,0,0.07);}
+.alert-warn{background:var(--warning-light);border-color:var(--warning);}
+.alert-warn .alert-icon{color:var(--warning);font-size:21px;}
+.alert-danger{background:var(--danger-light);border-color:var(--danger);}
+.alert-danger .alert-icon{color:var(--danger);font-size:21px;}
+.alert-text p{font-size:13px;font-weight:600;color:var(--text);}
+.alert-text span{font-size:11.5px;color:var(--muted);}
+
+/* ── CHART AREA (canvas-based) ── */
+.chart-wrap{position:relative;width:100%;height:200px;}
+
+/* ── PRODUCT GRID ── */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px;}
+.product-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px;display:flex;flex-direction:column;gap:9px;transition:box-shadow 0.15s,border-color 0.15s;cursor:pointer;}
+.product-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.09);border-color:var(--primary-light);}
+.product-img{width:100%;height:72px;background:var(--surface);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;}
+.product-name{font-size:12.5px;font-weight:600;color:var(--text);line-height:1.3;}
+.product-type{font-size:11px;color:var(--muted);}
+.product-footer{display:flex;align-items:center;justify-content:space-between;}
+.add-btn{width:26px;height:26px;border-radius:6px;background:var(--primary);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:background 0.15s;}
+.add-btn:hover{background:var(--primary-light);}
+.product-price{font-size:12.5px;font-weight:700;color:var(--primary);}
+
+/* ── CHIPS ── */
+.chips{display:flex;gap:7px;flex-wrap:wrap;}
+.chip{padding:4px 12px;border-radius:20px;font-size:11.5px;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all 0.15s;white-space:nowrap;font-weight:500;}
+.chip.active,.chip:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+/* ── RUTAS ÓPTIMAS ── */
+#routeCanvas{width:100%;height:420px;background:var(--card);border:1px solid var(--border);border-radius:12px;display:block;cursor:grab;}
+#routeCanvas:active{cursor:grabbing;}
+.route-info-panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.route-step{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.route-step:last-child{border-bottom:none;}
+.route-node-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.node-origin{background:var(--success-light);color:var(--success);}
+.node-mid{background:#EFF6FF;color:var(--primary-light);}
+.node-dest{background:var(--danger-light);color:var(--danger);}
+.route-step-info{flex:1;}
+.route-step-info p{font-size:12.5px;font-weight:600;}
+.route-step-info span{font-size:11px;color:var(--muted);}
+.route-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.route-select-wrap{display:flex;flex-direction:column;gap:4px;}
+.route-select-wrap label{font-size:11px;font-weight:600;color:var(--muted);}
+.route-select-wrap select{width:160px;font-size:12px;padding:7px 10px;}
+
+/* ── COSTOS ── */
+.costos-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.cost-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.cost-card-title{font-size:13px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.iva-calc-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);}
+.iva-calc-row:last-child{border-bottom:none;}
+.iva-calc-row span:first-child{font-size:12.5px;color:var(--muted);}
+.iva-calc-row span:last-child{font-size:13px;font-weight:600;}
+.iva-total{background:var(--primary);color:#fff;border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
+.iva-total span:first-child{font-size:13px;font-weight:600;}
+.iva-total span:last-child{font-size:16px;font-weight:700;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;padding:10px 18px;border-radius:8px;font-size:12.5px;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;display:flex;align-items:center;gap:8px;}
+.toast.show{opacity:1;}
+
+/* ── SECTION HEADER ── */
+.section-header{display:flex;align-items:center;justify-content:space-between;}
+.section-title{font-size:14px;font-weight:600;color:var(--text);}
+
+/* ── FOOTER ── */
+.site-footer{background:var(--primary);color:rgba(255,255,255,0.55);font-size:11.5px;padding:0 28px;height:42px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-top:1px solid rgba(255,255,255,0.08);}
+.footer-left{display:flex;align-items:center;gap:18px;}
+.footer-brand{color:#fff;font-weight:700;font-size:12px;letter-spacing:0.3px;}
+.footer-sep{width:1px;height:14px;background:rgba(255,255,255,0.15);}
+.footer-link{color:rgba(255,255,255,0.45);cursor:pointer;transition:color 0.15s;font-size:11px;}
+.footer-link:hover{color:rgba(255,255,255,0.8);}
+.footer-right{display:flex;align-items:center;gap:14px;}
+.footer-status{display:flex;align-items:center;gap:5px;font-size:11px;}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#1A7A4A;box-shadow:0 0 0 2px rgba(26,122,74,0.35);animation:pulse-dot 2s infinite;}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 2px rgba(26,122,74,0.35);}50%{box-shadow:0 0 0 4px rgba(26,122,74,0.15);}}
+
+/* ── LOGIN SCREEN ── */
+#loginScreen{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--primary);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.login-bg-circle{
+  position:absolute;border-radius:50%;background:rgba(255,255,255,0.03);
+}
+.login-card{
+  background:#fff;border-radius:18px;width:420px;
+  box-shadow:0 32px 80px rgba(0,0,0,0.35);
+  overflow:hidden;position:relative;z-index:1;
+}
+.login-top{
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-mid) 60%,var(--primary-light) 100%);
+  padding:32px 36px 28px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.login-logo{
+  width:56px;height:56px;background:var(--accent);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;font-weight:800;color:#fff;
+  font-family:'JetBrains Mono',monospace;letter-spacing:-1px;
+  box-shadow:0 8px 24px rgba(232,130,12,0.4);
+}
+.login-title{color:#fff;font-size:22px;font-weight:700;}
+.login-sub{color:rgba(255,255,255,0.55);font-size:12px;text-align:center;line-height:1.5;}
+.login-body{padding:28px 36px 32px;}
+.login-field{margin-bottom:16px;}
+.login-field label{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:6px;}
+.login-input-wrap{position:relative;}
+.login-input-wrap i{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--muted);}
+.login-field input{
+  width:100%;border:1.5px solid var(--border);border-radius:9px;
+  padding:11px 12px 11px 37px;font-size:13px;font-family:inherit;
+  color:var(--text);background:var(--surface);outline:none;
+  transition:border-color 0.15s,box-shadow 0.15s;
+}
+.login-field input:focus{border-color:var(--primary-light);background:#fff;box-shadow:0 0 0 3px rgba(46,109,180,0.12);}
+.login-field input.lerror{border-color:var(--danger);}
+.login-error{color:var(--danger);font-size:11.5px;margin-top:4px;display:none;}
+.login-error.show{display:block;}
+.login-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.remember-wrap{display:flex;align-items:center;gap:6px;cursor:pointer;}
+.remember-wrap input[type=checkbox]{width:14px;height:14px;accent-color:var(--primary);cursor:pointer;}
+.remember-wrap span{font-size:12px;color:var(--muted);}
+.forgot-link{font-size:12px;color:var(--primary-light);cursor:pointer;font-weight:600;}
+.forgot-link:hover{text-decoration:underline;}
+.btn-login{
+  width:100%;background:var(--primary);color:#fff;border:none;
+  padding:13px;border-radius:9px;font-size:14px;font-weight:700;
+  font-family:inherit;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background 0.15s;
+}
+.btn-login:hover{background:var(--primary-light);}
+.login-divider{display:flex;align-items:center;gap:10px;margin:18px 0;}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.login-divider span{font-size:11px;color:var(--muted);}
+.demo-users{display:flex;flex-direction:column;gap:7px;}
+.demo-user-btn{
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:9px 12px;cursor:pointer;transition:all 0.15s;text-align:left;width:100%;
+  font-family:inherit;
+}
+.demo-user-btn:hover{border-color:var(--primary-light);background:#f0f5fc;}
+.demo-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;}
+.demo-info p{font-size:12px;font-weight:600;color:var(--text);}
+.demo-info span{font-size:10.5px;color:var(--muted);}
+/* ── CHANGE CREDENTIALS MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:8888;
+  background:rgba(0,0,0,0.45);backdrop-filter:blur(3px);
+  display:none;align-items:center;justify-content:center;
+}
+.modal-overlay.show{display:flex;}
+.modal-box{
+  background:#fff;border-radius:14px;width:460px;
+  box-shadow:0 24px 60px rgba(0,0,0,0.25);overflow:hidden;
+}
+.modal-header{
+  background:linear-gradient(135deg,var(--primary),var(--primary-mid));
+  padding:20px 24px;display:flex;align-items:center;justify-content:space-between;
+}
+.modal-header h3{color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.modal-close{
+  width:28px;height:28px;border-radius:6px;border:none;
+  background:rgba(255,255,255,0.15);color:#fff;font-size:18px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+.modal-close:hover{background:rgba(255,255,255,0.25);}
+.modal-body{padding:24px;}
+.modal-section-lbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;}
+.modal-field{margin-bottom:13px;}
+.modal-field label{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:5px;}
+.modal-field input{
+  width:100%;border:1.5px solid var(--border);border-radius:8px;
+  padding:9px 12px;font-size:12.5px;font-family:inherit;color:var(--text);
+  background:var(--surface);outline:none;transition:border-color 0.15s;
+}
+.modal-field input:focus{border-color:var(--primary-light);background:#fff;box-shadow:0 0 0 3px rgba(46,109,180,0.1);}
+.modal-field input:disabled{background:#f3f4f6;color:var(--muted);}
+.modal-divider{height:1px;background:var(--border);margin:16px 0;}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;}
+.btn-save-modal{background:var(--primary);color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:12.5px;font-weight:600;font-family:inherit;cursor:pointer;}
+.btn-save-modal:hover{background:var(--primary-light);}
+.btn-cancel-modal{background:var(--surface);color:var(--text);border:1px solid var(--border);padding:9px 16px;border-radius:8px;font-size:12.5px;font-family:inherit;cursor:pointer;}
+.user-chip{cursor:pointer;transition:background 0.15s;}
+.user-chip:hover{background:var(--border)!important;}
+.profile-pic-circle{width:42px;height:42px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN SCREEN ══ -->
+<div id="loginScreen">
+  <div style="position:absolute;inset:0;overflow:hidden;">
+    <div class="login-bg-circle" style="width:600px;height:600px;top:-200px;right:-200px;"></div>
+    <div class="login-bg-circle" style="width:400px;height:400px;bottom:-100px;left:-100px;"></div>
+    <div class="login-bg-circle" style="width:200px;height:200px;top:40%;left:30%;"></div>
+  </div>
+  <div class="login-card">
+    <div class="login-top">
+      <div class="login-logo">SG</div>
+      <div class="login-title">SIGMAC</div>
+      <div class="login-sub">Sistema de Gestión de Materiales<br>Constructora Gonzales Garcia S.R.L.</div>
+    </div>
+    <div class="login-body">
+      <div class="login-field">
+        <label>USUARIO</label>
+        <div class="login-input-wrap">
+          <i class="ti ti-user"></i>
+          <input type="text" id="loginUser" placeholder="Ingrese su usuario" autocomplete="username">
+        </div>
+        <div class="login-error" id="loginUserErr">Usuario incorrecto</div>
+      </div>
+      <div class="login-field">
+        <label>CONTRASEÑA</label>
+        <div class="login-input-wrap">
+          <i class="ti ti-lock"></i>
+          <input type="password" id="loginPass" placeholder="Ingrese su contraseña" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <div class="login-error" id="loginPassErr">Contraseña incorrecta</div>
+      </div>
+      <div class="login-row">
+        <label class="remember-wrap">
+          <input type="checkbox" id="rememberMe" checked>
+          <span>Recordar sesión</span>
+        </label>
+        <span class="forgot-link" onclick="showToastSafe('Contacte al administrador del sistema')">¿Olvidó su contraseña?</span>
+      </div>
+      <button class="btn-login" onclick="doLogin()">
+        <i class="ti ti-login" style="font-size:17px;"></i> Iniciar Sesión
+      </button>
+      <div class="login-divider"><span>Accesos de demostración</span></div>
+      <div class="demo-users">
+        <button class="demo-user-btn" onclick="fillLogin('gonzales','obra2024')">
+          <div class="demo-avatar" style="background:#2E6DB4;">CG</div>
+          <div class="demo-info"><p>Carlos Gonzales</p><span>Jefe de Obra · gonzales</span></div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CHANGE CREDENTIALS MODAL ══ -->
+<div class="modal-overlay" id="credModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3><i class="ti ti-user-edit"></i> Cambiar Credenciales</h3>
+      <button class="modal-close" onclick="closeCredModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Profile info -->
+      <div style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:18px;">
+        <div class="profile-pic-circle" id="modalAvatar">GG</div>
+        <div>
+          <p id="modalFullName" style="font-size:14px;font-weight:700;color:var(--text);">Gerardo Gonzales</p>
+          <p id="modalRole" style="font-size:12px;color:var(--muted);margin-top:2px;">Administrador del Sistema</p>
+        </div>
+      </div>
+      <!-- Change username -->
+      <div class="modal-section-lbl">Cambiar nombre de usuario</div>
+      <div class="modal-field">
+        <label>Usuario actual</label>
+        <input type="text" id="modalCurrentUser" disabled>
+      </div>
+      <div class="modal-field">
+        <label>Nuevo usuario</label>
+        <input type="text" id="modalNewUser" placeholder="Ingrese el nuevo usuario">
+      </div>
+      <div class="modal-divider"></div>
+      <!-- Change password -->
+      <div class="modal-section-lbl">Cambiar contraseña</div>
+      <div class="modal-field">
+        <label>Contraseña actual</label>
+        <input type="password" id="modalCurrentPass" placeholder="Ingrese su contraseña actual">
+      </div>
+      <div class="modal-field">
+        <label>Nueva contraseña</label>
+        <input type="password" id="modalNewPass" placeholder="Mínimo 6 caracteres">
+      </div>
+      <div class="modal-field">
+        <label>Confirmar nueva contraseña</label>
+        <input type="password" id="modalConfirmPass" placeholder="Repita la nueva contraseña">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel-modal" onclick="closeCredModal()">Cancelar</button>
+        <button class="btn-save-modal" onclick="saveCredentials()"><i class="ti ti-device-floppy" style="vertical-align:-2px;margin-right:4px;"></i>Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-logo">
+      <div class="logo-icon">SG</div>
+      <div>
+        <div class="brand-name">SIGMAC</div>
+        <span class="brand-sub">Sistema de Gestión</span>
+      </div>
+    </div>
+    <div class="company-tag">
+      <strong>Constructora Gonzales Garcia S.R.L.</strong>
+      La Paz, Bolivia
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Principal</div>
+    <div class="nav-item active" onclick="showPage('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+    <div class="nav-item" onclick="showPage('materiales',this)"><i class="ti ti-package"></i> Gestión de Materiales</div>
+    <div class="nav-item" onclick="showPage('inventario',this)"><i class="ti ti-clipboard-list"></i> Inventario</div>
+    <div class="nav-item" onclick="showPage('movimientos',this)"><i class="ti ti-arrows-exchange"></i> Ingresos y Salidas</div>
+    <div class="nav-section">Gestión</div>
+    <div class="nav-item" onclick="showPage('costos',this)"><i class="ti ti-calculator"></i> Gestión de Costos</div>
+    <div class="nav-item" onclick="showPage('obras',this)"><i class="ti ti-building-estate"></i> Obras</div>
+    <div class="nav-item" onclick="showPage('proveedores',this)"><i class="ti ti-truck"></i> Proveedores</div>
+    <div class="nav-item" onclick="showPage('reportes',this)"><i class="ti ti-chart-bar"></i> Reportes</div>
+    <div class="nav-item" onclick="showPage('rutas',this)"><i class="ti ti-route"></i> Rutas Óptimas</div>
+    <div class="nav-section">Sistema</div>
+    <div class="nav-item" onclick="showPage('alertas',this)"><i class="ti ti-bell"></i> Alertas <span class="nav-badge">3</span></div>
+    <div class="nav-item" onclick="showPage('usuarios',this)"><i class="ti ti-users"></i> Usuarios</div>
+    <div class="nav-item" onclick="showPage('config',this)"><i class="ti ti-settings"></i> Configuración</div>
+    <div class="nav-item" onclick="openCredModal()"><i class="ti ti-key"></i> Cambiar Credenciales</div>
+  </nav>
+  <div style="padding:4px 8px;">
+    <div class="nav-item" onclick="doLogout()" style="color:rgba(255,200,180,0.7);"><i class="ti ti-logout"></i> Cerrar Sesión</div>
+  </div>
+  <div class="sidebar-user">
+    <div class="user-avatar">GG</div>
+    <div class="user-info">
+      <p>Gerardo Gonzales</p>
+      <span>Administrador</span>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <span class="sigmac-tag">SIGMAC</span>
+      <span class="header-date"><i class="ti ti-calendar" style="vertical-align:-3px;font-size:14px;margin-right:3px;color:var(--muted)"></i>Martes, 12 de Mayo 2026</span>
+      <div style="width:1px;height:20px;background:var(--border)"></div>
+      <div class="search-bar">
+        <i class="ti ti-search"></i>
+        <input type="text" id="searchInput" placeholder="Buscar materiales, obras, movimientos..." oninput="filterProducts()">
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="icon-btn" onclick="showPage('alertas',null)"><i class="ti ti-bell"></i><div class="badge">3</div></div>
+      <div class="icon-btn"><i class="ti ti-settings"></i></div>
+      <div id="headerUserChip" class="user-chip" onclick="openCredModal()" style="display:flex;align-items:center;gap:8px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;" title="Cambiar credenciales">
+        <div id="headerAvatar" style="width:28px;height:28px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;">GG</div>
+        <span id="headerUserName" style="font-size:12px;font-weight:600;color:var(--text);">Gerardo G.</span>
+        <i class="ti ti-chevron-down" style="font-size:14px;color:var(--muted)"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════ DASHBOARD ══════════════════ -->
+  <div class="content active" id="page-dashboard">
+    <div class="page-header">
+      <div><p class="page-title">Dashboard Principal</p><p class="page-sub">Constructora Gonzales Garcia S.R.L. — Resumen ejecutivo del sistema</p></div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-outline"><i class="ti ti-calendar"></i> Mayo 2026</button>
+        <button class="btn-primary" onclick="showToast('Exportando reporte...')"><i class="ti ti-download"></i> Exportar</button>
+      </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <div class="hero">
+      <div class="hero-text">
+        <h2 id="heroWelcome">Bienvenido, Gerardo</h2>
+        <p>La Paz, Bolivia · Sistema actualizado · Martes 12 mayo 2026, 08:30</p>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="val">48</div><div class="lbl">Materiales</div></div>
+        <div class="hero-stat"><div class="val">4</div><div class="lbl">Obras activas</div></div>
+        <div class="hero-stat"><div class="val">Bs 84K</div><div class="lbl">Stock valor</div></div>
+        <div class="hero-stat"><div class="val">3</div><div class="lbl">Alertas</div></div>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="stats-row">
+      <div class="stat-card blue"><div class="sc-label"><i class="ti ti-package" style="color:var(--primary-light)"></i> Total Materiales</div><div class="sc-val">48</div><div class="sc-sub up">↑ 3 este mes</div></div>
+      <div class="stat-card green"><div class="sc-label"><i class="ti ti-arrow-down-circle" style="color:var(--success)"></i> Entradas del Mes</div><div class="sc-val">Bs 67,400</div><div class="sc-sub up">↑ 12% vs mes ant.</div></div>
+      <div class="stat-card red"><div class="sc-label"><i class="ti ti-arrow-up-circle" style="color:var(--danger)"></i> Salidas del Mes</div><div class="sc-val">Bs 43,100</div><div class="sc-sub down">↑ 8% vs mes ant.</div></div>
+      <div class="stat-card orange"><div class="sc-label"><i class="ti ti-building-estate" style="color:var(--accent)"></i> Obras Activas</div><div class="sc-val">4</div><div class="sc-sub neutral">1 finaliza en junio</div></div>
+      <div class="stat-card purple"><div class="sc-label"><i class="ti ti-alert-triangle" style="color:#7C3AED"></i> Stock Bajo</div><div class="sc-val">5</div><div class="sc-sub down">Requieren reposición</div></div>
+    </div>
+
+    <!-- Main Grid: Chart + Alerts -->
+    <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px;">
+      <!-- Gráfico Grande -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><i class="ti ti-chart-bar" style="vertical-align:-2px;margin-right:5px;color:var(--primary-light)"></i>Costos por Obra — Mayo 2026</span>
+          <div style="display:flex;gap:6px;">
+            <button class="chip active" onclick="switchChart(this,'bar')">Barras</button>
+            <button class="chip" onclick="switchChart(this,'pie')">Pastel</button>
+          </div>
+        </div>
+        <div style="padding:16px;">
+          <canvas id="mainChart" height="220" style="width:100%;max-height:220px;"></canvas>
+        </div>
+        <div style="padding:0 16px 14px;display:flex;gap:16px;flex-wrap:wrap;">
+          <span style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)"><span style="width:12px;height:12px;border-radius:3px;background:#2E6DB4;display:inline-block"></span>Obra Central</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)"><span style="width:12px;height:12px;border-radius:3px;background:#1A7A4A;display:inline-block"></span>Edificio Norte</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)"><span style="width:12px;height:12px;border-radius:3px;background:#E8820C;display:inline-block"></span>Residencial Sur</span>
+          <span style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)"><span style="width:12px;height:12px;border-radius:3px;background:#7C3AED;display:inline-block"></span>Puente Río</span>
+        </div>
+      </div>
+
+      <!-- Alertas -->
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="section-header"><span class="section-title">Alertas de Stock</span><button class="btn-outline" style="font-size:11px;" onclick="showPage('alertas',null)">Ver todas</button></div>
+        <div class="alert alert-danger"><i class="ti ti-alert-circle alert-icon"></i><div class="alert-text" style="flex:1"><p>Sin stock: Pintura látex blanca</p><span>Edificio Norte · Mín: 20 gal · Actual: 0</span></div></div>
+        <div class="alert alert-warn"><i class="ti ti-alert-triangle alert-icon"></i><div class="alert-text" style="flex:1"><p>Stock bajo: Cemento Portland</p><span>Almacén Central · Quedan 12 sacos</span></div></div>
+        <div class="alert alert-warn"><i class="ti ti-alert-triangle alert-icon"></i><div class="alert-text" style="flex:1"><p>Stock bajo: Interruptor simple</p><span>Almacén Eléctrico · Quedan 8 u</span></div></div>
+        <div class="section-header" style="margin-top:4px;"><span class="section-title">Últimos Movimientos</span></div>
+        <div class="card">
+          <table>
+            <thead><tr><th>Material</th><th>Tipo</th><th>Cant.</th><th>Fecha</th></tr></thead>
+            <tbody>
+              <tr><td>Cemento Portland</td><td><span class="status-pill pill-in">Ingreso</span></td><td>50 sacos</td><td>10/05</td></tr>
+              <tr><td>Cable #12 AWG</td><td><span class="status-pill pill-out">Salida</span></td><td>200 m</td><td>10/05</td></tr>
+              <tr><td>Tubería PVC 4"</td><td><span class="status-pill pill-out">Salida</span></td><td>30 u</td><td>09/05</td></tr>
+              <tr><td>Varilla 3/8"</td><td><span class="status-pill pill-in">Ingreso</span></td><td>100 u</td><td>09/05</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ MATERIALES ══════════════════ -->
+  <div class="content" id="page-materiales">
+    <div class="page-header">
+      <div><p class="page-title">Gestión de Materiales</p><p class="page-sub">Catálogo completo de materiales registrados</p></div>
+      <button class="btn-primary" onclick="showPage('nuevo-material',null)"><i class="ti ti-plus"></i> Nuevo material</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="search-bar" style="max-width:300px;flex:none;">
+        <i class="ti ti-search"></i>
+        <input type="text" id="matSearch" placeholder="Buscar material..." oninput="filterMat()">
+      </div>
+      <div class="chips">
+        <div class="chip active" onclick="filterChip(this,'Todos')">Todos</div>
+        <div class="chip" onclick="filterChip(this,'Eléctrico')">⚡ Eléctrico</div>
+        <div class="chip" onclick="filterChip(this,'Instalaciones de Agua')">💧 Agua</div>
+        <div class="chip" onclick="filterChip(this,'Obra Gruesa')">🏗️ Obra Gruesa</div>
+        <div class="chip" onclick="filterChip(this,'Obra Fina')">🎨 Obra Fina</div>
+      </div>
+    </div>
+    <div class="section-header"><span class="section-title" id="grid-category-label">Todos los materiales</span><span style="font-size:12px;color:var(--muted)" id="mat-count">8 materiales</span></div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+
+  <!-- NUEVO MATERIAL -->
+  <div class="content" id="page-nuevo-material">
+    <div class="page-header">
+      <div><p class="page-title">Nuevo Material</p><p class="page-sub">Registrar un nuevo material en el sistema</p></div>
+      <button class="btn-outline" onclick="showPage('materiales',null)"><i class="ti ti-arrow-left"></i> Volver</button>
+    </div>
+    <div class="card" style="padding:20px;max-width:700px;">
+      <div class="form-grid">
+        <div class="form-group"><label>Nombre del material</label><input type="text" placeholder="Ej: Cemento Portland 50kg"></div>
+        <div class="form-group"><label>Categoría</label><select><option>Obra Gruesa</option><option>Eléctrico</option><option>Instalaciones de Agua</option><option>Obra Fina</option></select></div>
+        <div class="form-group"><label>Unidad de medida</label><input type="text" placeholder="saco, m, u, kg, gal..."></div>
+        <div class="form-group"><label>Precio unitario (Bs)</label><input type="number" placeholder="0.00" min="0"></div>
+        <div class="form-group"><label>Stock inicial</label><input type="number" placeholder="0" min="0"></div>
+        <div class="form-group"><label>Stock mínimo</label><input type="number" placeholder="0" min="0"></div>
+        <div class="form-group full"><label>Descripción</label><textarea placeholder="Descripción del material..."></textarea></div>
+        <div class="form-actions"><button class="btn-outline" onclick="showPage('materiales',null)">Cancelar</button><button class="btn-primary" onclick="showToast('✓ Material registrado correctamente')">Guardar material</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ INVENTARIO ══════════════════ -->
+  <div class="content" id="page-inventario">
+    <div class="page-header">
+      <div><p class="page-title">Inventario</p><p class="page-sub">Control de stock disponible en tiempo real</p></div>
+      <div style="display:flex;gap:8px;"><button class="btn-outline"><i class="ti ti-filter"></i> Filtrar</button><button class="btn-outline"><i class="ti ti-file-spreadsheet"></i> Exportar Excel</button></div>
+    </div>
+    <div class="stats-row" style="grid-template-columns:repeat(4,1fr);">
+      <div class="stat-card blue"><div class="sc-label">Total materiales</div><div class="sc-val">48</div></div>
+      <div class="stat-card green"><div class="sc-label">En stock OK</div><div class="sc-val">38</div></div>
+      <div class="stat-card orange"><div class="sc-label">Stock bajo</div><div class="sc-val">4</div></div>
+      <div class="stat-card red"><div class="sc-label">Sin stock</div><div class="sc-val">6</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Stock actual por material</span><button class="btn-outline" onclick="showToast('Actualizando inventario...')"><i class="ti ti-refresh"></i> Actualizar</button></div>
+      <table>
+        <thead><tr><th>Material</th><th>Categoría</th><th>Disponible</th><th>Mínimo</th><th>Valor (Bs)</th><th>Estado</th><th>Actualización</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Cemento Portland</strong></td><td>Obra Gruesa</td><td>12 sacos</td><td>20 sacos</td><td>Bs 300</td><td><span class="stock-badge stock-low">Stock bajo</span></td><td>10/05/26</td></tr>
+          <tr><td><strong>Cable #12 AWG</strong></td><td>Eléctrico</td><td>350 m</td><td>100 m</td><td>Bs 1,470</td><td><span class="stock-badge stock-ok">OK</span></td><td>10/05/26</td></tr>
+          <tr><td><strong>Tubería PVC 4"</strong></td><td>Inst. de Agua</td><td>45 u</td><td>20 u</td><td>Bs 1,710</td><td><span class="stock-badge stock-ok">OK</span></td><td>09/05/26</td></tr>
+          <tr><td><strong>Pintura látex blanca</strong></td><td>Obra Fina</td><td>0 gal</td><td>20 gal</td><td>Bs 0</td><td><span class="stock-badge stock-out">Sin stock</span></td><td>08/05/26</td></tr>
+          <tr><td><strong>Varilla 3/8"</strong></td><td>Obra Gruesa</td><td>180 u</td><td>50 u</td><td>Bs 3,240</td><td><span class="stock-badge stock-ok">OK</span></td><td>09/05/26</td></tr>
+          <tr><td><strong>Interruptor simple</strong></td><td>Eléctrico</td><td>8 u</td><td>15 u</td><td>Bs 96</td><td><span class="stock-badge stock-low">Stock bajo</span></td><td>07/05/26</td></tr>
+          <tr><td><strong>Yeso fino</strong></td><td>Obra Fina</td><td>80 kg</td><td>30 kg</td><td>Bs 640</td><td><span class="stock-badge stock-ok">OK</span></td><td>10/05/26</td></tr>
+          <tr><td><strong>Codo PVC 90°</strong></td><td>Inst. de Agua</td><td>120 u</td><td>40 u</td><td>Bs 600</td><td><span class="stock-badge stock-ok">OK</span></td><td>09/05/26</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ MOVIMIENTOS ══════════════════ -->
+  <div class="content" id="page-movimientos">
+    <div class="page-header">
+      <div><p class="page-title">Ingresos y Salidas</p><p class="page-sub">Registro de movimientos de materiales</p></div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-success" onclick="showSubForm('ingreso')"><i class="ti ti-arrow-down"></i> Registrar Ingreso</button>
+        <button class="btn-danger" onclick="showSubForm('salida')"><i class="ti ti-arrow-up"></i> Registrar Salida</button>
+      </div>
+    </div>
+    <div class="card" id="movForm" style="display:none;padding:20px;">
+      <div class="card-title" id="movFormTitle" style="margin-bottom:16px;">Registrar movimiento</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Material</label><select><option>Cemento Portland</option><option>Cable #12 AWG</option><option>Tubería PVC 4"</option><option>Varilla 3/8"</option></select></div>
+        <div class="form-group"><label>Obra / Destino</label><select><option>Obra Central La Paz</option><option>Edificio Norte</option><option>Residencial Sur</option><option>Puente Río Choqueyapu</option></select></div>
+        <div class="form-group"><label>Cantidad</label><input type="number" placeholder="0" min="0"></div>
+        <div class="form-group"><label>Precio unitario (Bs)</label><input type="number" placeholder="0.00" min="0"></div>
+        <div class="form-group"><label>Fecha</label><input type="date" value="2026-05-12"></div>
+        <div class="form-group"><label>Responsable</label><input type="text" placeholder="Nombre del responsable"></div>
+        <div class="form-group full"><label>Descripción / Motivo</label><textarea placeholder="Descripción del movimiento..."></textarea></div>
+        <div class="form-actions"><button class="btn-outline" onclick="document.getElementById('movForm').style.display='none'">Cancelar</button><button class="btn-primary" onclick="showToast('✓ Movimiento registrado');document.getElementById('movForm').style.display='none'">Guardar movimiento</button></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Historial de movimientos</span><button class="btn-outline"><i class="ti ti-file-export"></i> Exportar</button></div>
+      <table>
+        <thead><tr><th>ID</th><th>Material</th><th>Tipo</th><th>Cantidad</th><th>Precio U.</th><th>Total</th><th>Obra</th><th>Usuario</th><th>Fecha</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">#M-041</td><td>Cemento Portland</td><td><span class="status-pill pill-in">Ingreso</span></td><td>50 sacos</td><td>Bs 25</td><td>Bs 1,250</td><td>Obra Central</td><td>G. Gonzales</td><td>10/05/26</td></tr>
+          <tr><td class="mono">#M-040</td><td>Cable #12 AWG</td><td><span class="status-pill pill-out">Salida</span></td><td>200 m</td><td>Bs 4.2</td><td>Bs 840</td><td>Edificio Norte</td><td>M. García</td><td>10/05/26</td></tr>
+          <tr><td class="mono">#M-039</td><td>Tubería PVC 4"</td><td><span class="status-pill pill-out">Salida</span></td><td>30 u</td><td>Bs 38</td><td>Bs 1,140</td><td>Residencial Sur</td><td>J. Olivares</td><td>09/05/26</td></tr>
+          <tr><td class="mono">#M-038</td><td>Varilla 3/8"</td><td><span class="status-pill pill-in">Ingreso</span></td><td>100 u</td><td>Bs 18</td><td>Bs 1,800</td><td>Obra Central</td><td>G. Gonzales</td><td>09/05/26</td></tr>
+          <tr><td class="mono">#M-037</td><td>Yeso fino</td><td><span class="status-pill pill-in">Ingreso</span></td><td>80 kg</td><td>Bs 8</td><td>Bs 640</td><td>Puente Río</td><td>R. Flores</td><td>08/05/26</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ GESTIÓN DE COSTOS ══════════════════ -->
+  <div class="content" id="page-costos">
+    <div class="page-header">
+      <div><p class="page-title">Gestión de Costos</p><p class="page-sub">Control financiero, IVA y resumen económico por obra</p></div>
+      <div style="display:flex;gap:8px;"><button class="btn-outline"><i class="ti ti-file-pdf"></i> PDF</button><button class="btn-primary"><i class="ti ti-file-spreadsheet"></i> Excel</button></div>
+    </div>
+
+    <!-- KPIs financieros -->
+    <div class="stats-row">
+      <div class="stat-card green"><div class="sc-label"><i class="ti ti-trending-up" style="color:var(--success)"></i> Ingresos del Mes</div><div class="sc-val">Bs 142,800</div><div class="sc-sub up">↑ 14% vs abril</div></div>
+      <div class="stat-card red"><div class="sc-label"><i class="ti ti-trending-down" style="color:var(--danger)"></i> Egresos del Mes</div><div class="sc-val">Bs 98,500</div><div class="sc-sub down">↑ 6% vs abril</div></div>
+      <div class="stat-card orange"><div class="sc-label"><i class="ti ti-receipt-tax" style="color:var(--accent)"></i> IVA Calculado</div><div class="sc-val">Bs 13,000</div><div class="sc-sub neutral">13% aplicado</div></div>
+      <div class="stat-card blue"><div class="sc-label"><i class="ti ti-wallet" style="color:var(--primary-light)"></i> Balance Neto</div><div class="sc-val">Bs 44,300</div><div class="sc-sub up">↑ Positivo</div></div>
+      <div class="stat-card purple"><div class="sc-label"><i class="ti ti-building-estate" style="color:#7C3AED"></i> Costo Total Obras</div><div class="sc-val">Bs 241,300</div><div class="sc-sub neutral">4 obras activas</div></div>
+    </div>
+
+    <div class="costos-grid">
+      <!-- Calculadora IVA -->
+      <div class="cost-card">
+        <div class="cost-card-title"><i class="ti ti-receipt-tax" style="color:var(--accent);font-size:18px"></i> Calculadora de IVA</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+          <div class="form-group"><label>Monto base (Bs)</label><input type="number" id="ivaBase" placeholder="0.00" oninput="calcIVA()"></div>
+          <div class="form-group"><label>Tasa IVA (%)</label><select id="ivaTasa" onchange="calcIVA()"><option value="13">13% — Bolivia estándar</option><option value="14.94">14.94% — RC-IVA</option></select></div>
+        </div>
+        <div class="iva-calc-row"><span>Monto base:</span><span id="ivaBaseOut">Bs 0.00</span></div>
+        <div class="iva-calc-row"><span>IVA calculado:</span><span id="ivaCalcOut" style="color:var(--accent)">Bs 0.00</span></div>
+        <div class="iva-total"><span>Total con IVA:</span><span id="ivaTotalOut">Bs 0.00</span></div>
+      </div>
+
+      <!-- Costos por obra -->
+      <div class="cost-card">
+        <div class="cost-card-title"><i class="ti ti-building-estate" style="color:var(--primary-light);font-size:18px"></i> Costos por Obra</div>
+        <canvas id="costosChart" height="180" style="width:100%;max-height:180px;"></canvas>
+      </div>
+
+      <!-- Costos por material -->
+      <div class="card" style="overflow:hidden;">
+        <div class="card-header"><span class="card-title">Costos por Material</span></div>
+        <table>
+          <thead><tr><th>Material</th><th>Cantidad usada</th><th>Costo unit.</th><th>Total sin IVA</th><th>IVA 13%</th><th>Total c/IVA</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Cemento Portland</strong></td><td>200 sacos</td><td>Bs 25</td><td>Bs 5,000</td><td>Bs 650</td><td>Bs 5,650</td></tr>
+            <tr><td><strong>Varilla 3/8"</strong></td><td>500 u</td><td>Bs 18</td><td>Bs 9,000</td><td>Bs 1,170</td><td>Bs 10,170</td></tr>
+            <tr><td><strong>Cable #12 AWG</strong></td><td>800 m</td><td>Bs 4.2</td><td>Bs 3,360</td><td>Bs 437</td><td>Bs 3,797</td></tr>
+            <tr><td><strong>Tubería PVC 4"</strong></td><td>120 u</td><td>Bs 38</td><td>Bs 4,560</td><td>Bs 593</td><td>Bs 5,153</td></tr>
+            <tr><td><strong>Pintura látex</strong></td><td>60 gal</td><td>Bs 95</td><td>Bs 5,700</td><td>Bs 741</td><td>Bs 6,441</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Resumen económico -->
+      <div class="cost-card">
+        <div class="cost-card-title"><i class="ti ti-chart-pie" style="color:var(--success);font-size:18px"></i> Resumen Económico</div>
+        <canvas id="resumenChart" height="180" style="width:100%;max-height:180px;"></canvas>
+      </div>
+    </div>
+
+    <!-- Registros contables -->
+    <div class="card">
+      <div class="card-header"><span class="card-title">Registros de Costos — Mayo 2026</span><button class="btn-outline"><i class="ti ti-file-export"></i> Exportar</button></div>
+      <table>
+        <thead><tr><th>ID</th><th>Descripción</th><th>Tipo</th><th>Costo Base</th><th>IVA 13%</th><th>Total c/IVA</th><th>Obra</th><th>Fecha</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">#C-021</td><td>Ingreso cemento ×50 sacos</td><td><span class="status-pill pill-in">Ingreso</span></td><td>Bs 1,250</td><td>Bs 162.50</td><td>Bs 1,412.50</td><td>Obra Central</td><td>10/05/26</td></tr>
+          <tr><td class="mono">#C-020</td><td>Salida cable eléctrico 200m</td><td><span class="status-pill pill-out">Egreso</span></td><td>Bs 840</td><td>Bs 109.20</td><td>Bs 949.20</td><td>Edificio Norte</td><td>10/05/26</td></tr>
+          <tr><td class="mono">#C-019</td><td>Salida tubería PVC ×30u</td><td><span class="status-pill pill-out">Egreso</span></td><td>Bs 1,140</td><td>Bs 148.20</td><td>Bs 1,288.20</td><td>Residencial Sur</td><td>09/05/26</td></tr>
+          <tr><td class="mono">#C-018</td><td>Ingreso varillas ×100u</td><td><span class="status-pill pill-in">Ingreso</span></td><td>Bs 1,800</td><td>Bs 234.00</td><td>Bs 2,034.00</td><td>Obra Central</td><td>09/05/26</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ RUTAS ÓPTIMAS ══════════════════ -->
+  <div class="content" id="page-rutas">
+    <div class="page-header">
+      <div><p class="page-title">Rutas Óptimas</p><p class="page-sub">Optimización de distribución de materiales mediante grafos dirigidos</p></div>
+      <button class="btn-primary" onclick="calcRoute()"><i class="ti ti-route"></i> Calcular Ruta Óptima</button>
+    </div>
+
+    <!-- Controles -->
+    <div class="card" style="padding:16px;">
+      <div class="route-controls">
+        <div class="route-select-wrap"><label>Origen</label><select id="routeFrom" onchange="calcRoute()"><option value="0">Almacén Central (La Paz)</option><option value="1">Ferretería El Constructor</option><option value="2">Distribuidora PLASTIBOL</option><option value="3">Electro Andina</option></select></div>
+        <i class="ti ti-arrow-right" style="font-size:22px;color:var(--muted);margin-top:16px;"></i>
+        <div class="route-select-wrap"><label>Destino</label><select id="routeTo" onchange="calcRoute()"><option value="4">Obra Central Cochabamba</option><option value="5">Edificio Norte (El Alto)</option><option value="6">Residencial Sur (Calacoto)</option><option value="7">Puente Río Choqueyapu</option></select></div>
+        <div style="margin-left:auto;display:flex;gap:10px;margin-top:16px;">
+          <button class="btn-outline" onclick="resetRouteView()"><i class="ti ti-zoom-reset"></i> Reiniciar vista</button>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);">
+            <span style="display:inline-block;width:16px;height:3px;background:var(--success);border-radius:2px"></span>Ruta óptima
+            <span style="display:inline-block;width:16px;height:3px;background:var(--border);border-radius:2px"></span>Otras rutas
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.8fr 1fr;gap:14px;align-items:start;">
+      <!-- Canvas Grafo -->
+      <div>
+        <canvas id="routeCanvas"></canvas>
+        <p style="font-size:11px;color:var(--muted);margin-top:6px;text-align:center;"><i class="ti ti-hand-grab" style="vertical-align:-2px"></i> Los nodos son interactivos — haga clic para seleccionarlos</p>
+      </div>
+
+      <!-- Panel info ruta -->
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <!-- Resumen -->
+        <div class="card" style="padding:16px;">
+          <div class="card-title" style="margin-bottom:12px;display:flex;align-items:center;gap:8px;"><i class="ti ti-route" style="color:var(--primary-light)"></i> Ruta Óptima Calculada</div>
+          <div id="routeSummary" style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Distancia total</span><strong id="routeDist" style="font-size:13px;">-- km</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Costo transporte</span><strong id="routeCost" style="font-size:13px;color:var(--accent)">Bs --</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Tiempo estimado</span><strong id="routeTime" style="font-size:13px;">-- min</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Nodos en ruta</span><strong id="routeNodes" style="font-size:13px;">--</strong></div>
+          </div>
+        </div>
+        <!-- Pasos -->
+        <div class="route-info-panel">
+          <div class="card-title" style="margin-bottom:10px;display:flex;align-items:center;gap:8px;"><i class="ti ti-list-check" style="color:var(--success)"></i> Pasos de la ruta</div>
+          <div id="routeSteps">
+            <p style="font-size:12.5px;color:var(--muted);">Seleccione origen y destino para calcular la ruta óptima.</p>
+          </div>
+        </div>
+        <!-- Tabla de aristas -->
+        <div class="card">
+          <div class="card-header"><span class="card-title">Conexiones del grafo</span></div>
+          <table>
+            <thead><tr><th>Desde</th><th>Hacia</th><th>Dist.</th><th>Costo Bs</th></tr></thead>
+            <tbody id="edgesTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ OBRAS ══════════════════ -->
+  <div class="content" id="page-obras">
+    <div class="page-header">
+      <div><p class="page-title">Obras</p><p class="page-sub">Gestión de obras y proyectos activos</p></div>
+      <button class="btn-primary"><i class="ti ti-plus"></i> Nueva obra</button>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Obras registradas</span></div>
+      <table>
+        <thead><tr><th>Nombre</th><th>Ubicación</th><th>Responsable</th><th>Inicio</th><th>Fin estimado</th><th>Presupuesto</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Obra Central La Paz</strong></td><td>Av. Arce, La Paz</td><td>G. Gonzales</td><td>01/01/26</td><td>30/06/26</td><td>Bs 480,000</td><td><span class="status-pill pill-in">Activa</span></td></tr>
+          <tr><td><strong>Edificio Norte</strong></td><td>El Alto, Zona 16 Jul.</td><td>M. García</td><td>15/02/26</td><td>31/07/26</td><td>Bs 320,000</td><td><span class="status-pill pill-in">Activa</span></td></tr>
+          <tr><td><strong>Residencial Sur</strong></td><td>Calacoto, La Paz</td><td>A. Mamani</td><td>01/03/26</td><td>31/05/26</td><td>Bs 180,000</td><td><span class="status-pill pill-warn">Por vencer</span></td></tr>
+          <tr><td><strong>Puente Río Choqueyapu</strong></td><td>Bajo Següencoma</td><td>R. Flores</td><td>01/04/26</td><td>30/09/26</td><td>Bs 650,000</td><td><span class="status-pill pill-in">Activa</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ PROVEEDORES ══════════════════ -->
+  <div class="content" id="page-proveedores">
+    <div class="page-header">
+      <div><p class="page-title">Proveedores</p><p class="page-sub">Directorio de proveedores de materiales</p></div>
+      <button class="btn-primary"><i class="ti ti-plus"></i> Nuevo proveedor</button>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Proveedores registrados</span></div>
+      <table>
+        <thead><tr><th>Nombre</th><th>Teléfono</th><th>Dirección</th><th>Materiales</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ferretería El Constructor</strong></td><td>2-291-4450</td><td>Av. Montes 1234, La Paz</td><td>Cemento, Varillas, Alambre</td><td><span class="status-pill pill-in">Activo</span></td></tr>
+          <tr><td><strong>Electro Andina</strong></td><td>2-244-8820</td><td>Calle Tumusla 567</td><td>Cables, Interruptores, Tableros</td><td><span class="status-pill pill-in">Activo</span></td></tr>
+          <tr><td><strong>Distribuidora PLASTIBOL</strong></td><td>2-278-3390</td><td>El Alto, Zona 16 de Julio</td><td>Tuberías PVC, Accesorios</td><td><span class="status-pill pill-in">Activo</span></td></tr>
+          <tr><td><strong>Pinturas Cóndor</strong></td><td>2-241-1100</td><td>Sopocachi, La Paz</td><td>Pintura látex, Esmaltes</td><td><span class="status-pill pill-warn">Suspendido</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ REPORTES ══════════════════ -->
+  <div class="content" id="page-reportes">
+    <div class="page-header">
+      <div><p class="page-title">Reportes</p><p class="page-sub">Generación y exportación de informes del sistema</p></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="card" style="padding:18px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><i class="ti ti-chart-bar" style="font-size:22px;color:var(--primary-light)"></i><span class="card-title">Reporte de Stock</span></div>
+        <p style="font-size:12.5px;color:var(--muted);">Estado actual de inventario por material y almacén.</p>
+        <div class="form-group"><label>Fecha desde</label><input type="date" value="2026-05-01"></div>
+        <div class="form-group"><label>Fecha hasta</label><input type="date" value="2026-05-12"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn-primary" onclick="showToast('✓ Reporte generado')"><i class="ti ti-file-analytics"></i> Generar</button><button class="btn-outline" onclick="showToast('Exportando Excel...')"><i class="ti ti-file-spreadsheet"></i> Excel</button><button class="btn-outline" onclick="showToast('Generando PDF...')"><i class="ti ti-file-pdf"></i> PDF</button></div>
+      </div>
+      <div class="card" style="padding:18px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><i class="ti ti-arrows-exchange" style="font-size:22px;color:var(--success)"></i><span class="card-title">Reporte de Movimientos</span></div>
+        <p style="font-size:12.5px;color:var(--muted);">Historial detallado de ingresos y salidas por obra.</p>
+        <div class="form-group"><label>Obra</label><select><option>Todas las obras</option><option>Obra Central La Paz</option><option>Edificio Norte</option><option>Residencial Sur</option><option>Puente Río Choqueyapu</option></select></div>
+        <div class="form-group"><label>Tipo</label><select><option>Todos</option><option>Ingresos</option><option>Salidas</option></select></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn-primary" onclick="showToast('✓ Reporte generado')"><i class="ti ti-file-analytics"></i> Generar</button><button class="btn-outline" onclick="showToast('Exportando Excel...')"><i class="ti ti-file-spreadsheet"></i> Excel</button><button class="btn-outline" onclick="showToast('Generando PDF...')"><i class="ti ti-file-pdf"></i> PDF</button></div>
+      </div>
+      <div class="card" style="padding:18px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><i class="ti ti-calculator" style="font-size:22px;color:var(--accent)"></i><span class="card-title">Reporte de Costos</span></div>
+        <p style="font-size:12.5px;color:var(--muted);">Resumen de costos con IVA desglosado por obra y material.</p>
+        <div class="form-group"><label>Periodo</label><select><option>Mayo 2026</option><option>Abril 2026</option><option>Q1 2026</option></select></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn-primary" onclick="showToast('✓ Reporte de costos generado')"><i class="ti ti-file-analytics"></i> Generar</button><button class="btn-outline"><i class="ti ti-file-spreadsheet"></i> Excel</button><button class="btn-outline"><i class="ti ti-file-pdf"></i> PDF</button></div>
+      </div>
+      <div class="card" style="padding:18px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><i class="ti ti-route" style="font-size:22px;color:#7C3AED"></i><span class="card-title">Reporte de Rutas</span></div>
+        <p style="font-size:12.5px;color:var(--muted);">Historial de rutas de distribución calculadas y costos de transporte.</p>
+        <div class="form-group"><label>Periodo</label><select><option>Mayo 2026</option><option>Abril 2026</option></select></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn-primary" onclick="showToast('✓ Reporte de rutas generado')"><i class="ti ti-file-analytics"></i> Generar</button><button class="btn-outline"><i class="ti ti-file-pdf"></i> PDF</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ ALERTAS ══════════════════ -->
+  <div class="content" id="page-alertas">
+    <div class="page-header">
+      <div><p class="page-title">Alertas de Stock</p><p class="page-sub">Materiales que requieren atención inmediata</p></div>
+      <button class="btn-outline" onclick="showToast('Reposición masiva solicitada')"><i class="ti ti-shopping-cart"></i> Solicitar reposición masiva</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="alert alert-danger" style="box-shadow:0 2px 10px rgba(192,57,43,0.12);">
+        <i class="ti ti-alert-circle alert-icon" style="font-size:26px;"></i>
+        <div class="alert-text" style="flex:1;">
+          <p>⛔ Sin stock: Pintura látex blanca</p>
+          <span>Obra Edificio Norte · Mínimo requerido: 20 galones · Stock actual: 0 galones</span>
+        </div>
+        <button class="btn-danger" onclick="showToast('✓ Solicitud enviada a Pinturas Cóndor')">Solicitar reposición</button>
+      </div>
+      <div class="alert alert-warn" style="box-shadow:0 2px 10px rgba(212,130,10,0.1);">
+        <i class="ti ti-alert-triangle alert-icon" style="font-size:26px;"></i>
+        <div class="alert-text" style="flex:1;">
+          <p>⚠ Stock bajo: Cemento Portland</p>
+          <span>Almacén Central · Mínimo requerido: 20 sacos · Stock actual: 12 sacos</span>
+        </div>
+        <button class="btn-outline" onclick="showToast('✓ Solicitud enviada a Ferretería El Constructor')">Solicitar reposición</button>
+      </div>
+      <div class="alert alert-warn" style="box-shadow:0 2px 10px rgba(212,130,10,0.1);">
+        <i class="ti ti-alert-triangle alert-icon" style="font-size:26px;"></i>
+        <div class="alert-text" style="flex:1;">
+          <p>⚠ Stock bajo: Interruptor simple</p>
+          <span>Almacén Eléctrico · Mínimo requerido: 15 u · Stock actual: 8 u</span>
+        </div>
+        <button class="btn-outline" onclick="showToast('✓ Solicitud enviada a Electro Andina')">Solicitar reposición</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ USUARIOS ══════════════════ -->
+  <div class="content" id="page-usuarios">
+    <div class="page-header">
+      <div><p class="page-title">Usuarios</p><p class="page-sub">Gestión de accesos y roles del sistema</p></div>
+      <button class="btn-primary"><i class="ti ti-plus"></i> Nuevo usuario</button>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Usuarios del sistema</span></div>
+      <table>
+        <thead><tr><th>Nombre</th><th>Usuario</th><th>Rol</th><th>Último acceso</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Gerardo Gonzales</strong></td><td class="mono">g.gonzales</td><td><span class="status-pill pill-info">Administrador</span></td><td>12/05/26 08:30</td><td><span class="status-pill pill-in">Activo</span></td></tr>
+          <tr><td><strong>María García</strong></td><td class="mono">m.garcia</td><td><span class="status-pill" style="background:#F3F0FF;color:#7C3AED">Jefe de Obra</span></td><td>12/05/26 07:45</td><td><span class="status-pill pill-in">Activo</span></td></tr>
+          <tr><td><strong>Andrés Mamani</strong></td><td class="mono">a.mamani</td><td><span class="status-pill pill-info">Encargado Stock</span></td><td>11/05/26 16:20</td><td><span class="status-pill pill-in">Activo</span></td></tr>
+          <tr><td><strong>Rosa Flores</strong></td><td class="mono">r.flores</td><td><span class="status-pill" style="background:#F3F0FF;color:#7C3AED">Jefe de Obra</span></td><td>10/05/26 12:00</td><td><span class="status-pill pill-in">Activo</span></td></tr>
+          <tr><td><strong>José Olivares</strong></td><td class="mono">j.olivares</td><td><span class="status-pill" style="background:var(--surface);color:var(--muted)">Solo lectura</span></td><td>08/05/26 09:10</td><td><span class="status-pill pill-warn">Inactivo</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════ CONFIGURACIÓN ══════════════════ -->
+  <div class="content" id="page-config">
+    <div class="page-header">
+      <div><p class="page-title">Configuración</p><p class="page-sub">Ajustes generales del sistema SIGMAC</p></div>
+    </div>
+    <div class="card" style="padding:20px;max-width:640px;">
+      <div class="card-title" style="margin-bottom:16px;">Datos de la empresa</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Nombre de la empresa</label><input type="text" value="Constructora Gonzales Garcia S.R.L."></div>
+        <div class="form-group"><label>NIT</label><input type="text" value="4598762013"></div>
+        <div class="form-group full"><label>Dirección</label><input type="text" value="Av. Arce, La Paz, Bolivia"></div>
+        <div class="form-group"><label>Teléfono</label><input type="text" value="2-244-7890"></div>
+        <div class="form-group"><label>Email</label><input type="text" value="admin@gonzalesgarcia.bo"></div>
+        <div class="form-group"><label>Tasa IVA predeterminada (%)</label><select><option>13</option><option>14.94</option></select></div>
+        <div class="form-actions"><button class="btn-primary" onclick="showToast('✓ Configuración guardada')">Guardar cambios</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER ══════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-left">
+      <span class="footer-brand">⬡ SIGMAC</span>
+      <div class="footer-sep"></div>
+      <span>Constructora Gonzales Garcia S.R.L.</span>
+      <div class="footer-sep"></div>
+      <span class="footer-link">La Paz, Bolivia</span>
+      <div class="footer-sep"></div>
+      <span class="footer-link">NIT: 4598762013</span>
+      <div class="footer-sep"></div>
+      <span class="footer-link">soporte@gonzalesgarcia.bo</span>
+    </div>
+    <div class="footer-right">
+      <div class="footer-status"><div class="status-dot"></div><span style="color:rgba(255,255,255,0.7)">Sistema operativo</span></div>
+      <div class="footer-sep"></div>
+      <span>v2.1.0</span>
+      <div class="footer-sep"></div>
+      <span>© 2026 Constructora Gonzales Garcia S.R.L. — Todos los derechos reservados</span>
+    </div>
+  </footer>
+</main>
+
+<div class="toast" id="toast"><i class="ti ti-check" style="font-size:16px;"></i><span id="toastMsg"></span></div>
+
+<script>
+// ── PRODUCTS DATA ──
+const products = [
+  {name:'Cemento Portland',type:'Obra Gruesa',stock:'low',price:'Bs 25/saco',icon:'🏗️'},
+  {name:'Cable #12 AWG',type:'Eléctrico',stock:'ok',price:'Bs 4.2/m',icon:'⚡'},
+  {name:'Tubería PVC 4"',type:'Instalaciones de Agua',stock:'ok',price:'Bs 38/u',icon:'💧'},
+  {name:'Pintura látex blanca',type:'Obra Fina',stock:'out',price:'Bs 95/gal',icon:'🎨'},
+  {name:'Varilla 3/8"',type:'Obra Gruesa',stock:'ok',price:'Bs 18/u',icon:'🏗️'},
+  {name:'Interruptor simple',type:'Eléctrico',stock:'low',price:'Bs 12/u',icon:'⚡'},
+  {name:'Yeso fino',type:'Obra Fina',stock:'ok',price:'Bs 8/kg',icon:'🎨'},
+  {name:'Codo PVC 90°',type:'Instalaciones de Agua',stock:'ok',price:'Bs 5/u',icon:'💧'},
+];
+let activeCategory = 'Todos';
+
+function renderProducts(list){
+  const grid = document.getElementById('productGrid');
+  const stockLabel = {ok:'Disponible',low:'Stock bajo',out:'Sin stock'};
+  const stockClass = {ok:'stock-ok',low:'stock-low',out:'stock-out'};
+  grid.innerHTML = list.map(p=>`
+    <div class="product-card">
+      <div class="product-img">${p.icon}</div>
+      <div><div class="product-name">${p.name}</div><div class="product-type">${p.type}</div></div>
+      <div class="product-footer">
+        <span class="stock-badge ${stockClass[p.stock]}">${stockLabel[p.stock]}</span>
+        ${p.stock!=='out'?`<button class="add-btn" onclick="showToast('${p.name} agregado')"><i class="ti ti-plus" style="font-size:13px"></i></button>`:''}
+      </div>
+      <div class="product-price">${p.price}</div>
+    </div>`).join('');
+  const cnt = document.getElementById('mat-count');
+  if(cnt) cnt.textContent = list.length+' materiales';
+}
+
+function filterChip(el,cat){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  activeCategory = cat;
+  const lbl = document.getElementById('grid-category-label');
+  if(lbl) lbl.textContent = cat==='Todos'?'Todos los materiales':cat;
+  const q = (document.getElementById('matSearch')||{value:''}).value.toLowerCase();
+  applyFilter(q,cat);
+}
+function filterMat(){ applyFilter(document.getElementById('matSearch').value.toLowerCase(),activeCategory); }
+function filterProducts(){ applyFilter(document.getElementById('searchInput').value.toLowerCase(),activeCategory); }
+function applyFilter(q,cat){
+  let list = products;
+  if(cat!=='Todos') list = list.filter(p=>p.type===cat);
+  if(q) list = list.filter(p=>p.name.toLowerCase().includes(q)||p.type.toLowerCase().includes(q));
+  renderProducts(list);
+}
+
+// ── NAVIGATION ──
+function showPage(id, navEl){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  const page = document.getElementById('page-'+id);
+  if(page) page.classList.add('active');
+  if(navEl){
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    navEl.classList.add('active');
+  }
+  if(id==='materiales'){ renderProducts(products); }
+  if(id==='costos'){ initCostosCharts(); }
+  if(id==='dashboard'){ initMainChart(); }
+  if(id==='rutas'){ initRouteGraph(); }
+}
+
+// ── TOAST ──
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ── MOVEMENT FORM ──
+function showSubForm(tipo){
+  const f=document.getElementById('movForm');
+  document.getElementById('movFormTitle').textContent = tipo==='ingreso'?'📥 Registrar Ingreso de Material':'📤 Registrar Salida de Material';
+  f.style.display='block';
+  f.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── IVA CALCULATOR ──
+function calcIVA(){
+  const base = parseFloat(document.getElementById('ivaBase').value)||0;
+  const tasa = parseFloat(document.getElementById('ivaTasa').value)||13;
+  const iva = base*(tasa/100);
+  const total = base+iva;
+  document.getElementById('ivaBaseOut').textContent = 'Bs '+base.toFixed(2);
+  document.getElementById('ivaCalcOut').textContent = 'Bs '+iva.toFixed(2);
+  document.getElementById('ivaTotalOut').textContent = 'Bs '+total.toFixed(2);
+}
+
+// ── CHARTS ──
+let mainChartInst=null, costosChartInst=null, resumenChartInst=null;
+let currentChartType = 'bar';
+
+function switchChart(el,type){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  currentChartType = type;
+  initMainChart();
+}
+
+function initMainChart(){
+  const canvas = document.getElementById('mainChart');
+  if(!canvas) return;
+  if(mainChartInst) mainChartInst.destroy();
+  const ctx = canvas.getContext('2d');
+  const labels = ['Ene','Feb','Mar','Abr','May'];
+  if(currentChartType==='bar'){
+    mainChartInst = new Chart(ctx,{
+      type:'bar',
+      data:{
+        labels,
+        datasets:[
+          {label:'Obra Central',data:[28000,32000,41000,38000,45000],backgroundColor:'#2E6DB4',borderRadius:5},
+          {label:'Edificio Norte',data:[18000,22000,19000,28000,31000],backgroundColor:'#1A7A4A',borderRadius:5},
+          {label:'Residencial Sur',data:[12000,14000,16000,14000,18000],backgroundColor:'#E8820C',borderRadius:5},
+          {label:'Puente Río',data:[0,0,22000,30000,38000],backgroundColor:'#7C3AED',borderRadius:5},
+        ]
+      },
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#F0F3F7'},ticks:{callback:v=>'Bs '+v/1000+'K'}}}}
+    });
+  } else {
+    mainChartInst = new Chart(ctx,{
+      type:'pie',
+      data:{
+        labels:['Obra Central','Edificio Norte','Residencial Sur','Puente Río'],
+        datasets:[{data:[45000,31000,18000,38000],backgroundColor:['#2E6DB4','#1A7A4A','#E8820C','#7C3AED'],borderWidth:2,borderColor:'#fff'}]
+      },
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}}}
+    });
+  }
+}
+
+function initCostosCharts(){
+  const c1=document.getElementById('costosChart');
+  const c2=document.getElementById('resumenChart');
+  if(!c1||!c2) return;
+  if(costosChartInst) costosChartInst.destroy();
+  if(resumenChartInst) resumenChartInst.destroy();
+  costosChartInst = new Chart(c1.getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:['Obra Central','Edif. Norte','Resid. Sur','Puente Río'],
+      datasets:[
+        {label:'Sin IVA',data:[65000,48000,28000,55000],backgroundColor:'#2E6DB4',borderRadius:4},
+        {label:'IVA 13%',data:[8450,6240,3640,7150],backgroundColor:'#E8820C',borderRadius:4}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:10}}}},scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,grid:{color:'#F0F3F7'},ticks:{callback:v=>'Bs '+v/1000+'K'}}}}
+  });
+  resumenChartInst = new Chart(c2.getContext('2d'),{
+    type:'doughnut',
+    data:{
+      labels:['Ingresos','Egresos','IVA acumulado'],
+      datasets:[{data:[142800,98500,13000],backgroundColor:['#1A7A4A','#C0392B','#E8820C'],borderWidth:3,borderColor:'#fff'}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},cutout:'60%'}
+  });
+}
+
+// ── GRAFO DE RUTAS ──
+const NODES = [
+  {id:0,label:'Almacén Central',sub:'La Paz',x:0.18,y:0.45,color:'#0F2C4E'},
+  {id:1,label:'Ferretería El Const.',sub:'Av. Montes',x:0.12,y:0.22,color:'#1A4A7A'},
+  {id:2,label:'PLASTIBOL',sub:'El Alto',x:0.1,y:0.7,color:'#1A4A7A'},
+  {id:3,label:'Electro Andina',sub:'Tumusla',x:0.28,y:0.82,color:'#1A4A7A'},
+  {id:4,label:'Obra Central',sub:'Av. Arce',x:0.5,y:0.35,color:'#E8820C'},
+  {id:5,label:'Edificio Norte',sub:'El Alto',x:0.52,y:0.7,color:'#E8820C'},
+  {id:6,label:'Residencial Sur',sub:'Calacoto',x:0.78,y:0.55,color:'#7C3AED'},
+  {id:7,label:'Puente Río',sub:'Choqueyapu',x:0.82,y:0.22,color:'#1A7A4A'},
+];
+
+const EDGES = [
+  {from:0,to:4,dist:8,cost:120},{from:0,to:5,dist:14,cost:200},{from:0,to:6,dist:18,cost:260},
+  {from:1,to:0,dist:6,cost:90},{from:1,to:4,dist:10,cost:145},{from:1,to:7,dist:22,cost:300},
+  {from:2,to:0,dist:15,cost:210},{from:2,to:5,dist:9,cost:130},{from:3,to:5,dist:7,cost:100},
+  {from:3,to:6,dist:12,cost:170},{from:4,to:6,dist:16,cost:230},{from:4,to:7,dist:20,cost:280},
+  {from:5,to:6,dist:18,cost:250},{from:0,to:7,dist:25,cost:340},{from:2,to:3,dist:8,cost:115},
+];
+
+let routeCanvas, routeCtx, highlightedPath=[], pan={x:0,y:0}, dragging=false, lastMouse={x:0,y:0};
+
+function initRouteGraph(){
+  routeCanvas = document.getElementById('routeCanvas');
+  if(!routeCanvas) return;
+  routeCtx = routeCanvas.getContext('2d');
+  resizeRouteCanvas();
+  calcRoute();
+  // Populate edges table
+  const tbody = document.getElementById('edgesTable');
+  tbody.innerHTML = EDGES.map(e=>`<tr><td>${NODES[e.from].label}</td><td>${NODES[e.to].label}</td><td>${e.dist} km</td><td>Bs ${e.cost}</td></tr>`).join('');
+  routeCanvas.addEventListener('mousedown',e=>{dragging=true;lastMouse={x:e.clientX,y:e.clientY};});
+  routeCanvas.addEventListener('mousemove',e=>{if(dragging){pan.x+=e.clientX-lastMouse.x;pan.y+=e.clientY-lastMouse.y;lastMouse={x:e.clientX,y:e.clientY};drawGraph();}});
+  routeCanvas.addEventListener('mouseup',()=>dragging=false);
+  routeCanvas.addEventListener('mouseleave',()=>dragging=false);
+  window.addEventListener('resize',resizeRouteCanvas);
+}
+
+function resizeRouteCanvas(){
+  if(!routeCanvas) return;
+  const rect = routeCanvas.parentElement.getBoundingClientRect();
+  routeCanvas.width = rect.width;
+  routeCanvas.height = 420;
+  drawGraph();
+}
+
+function resetRouteView(){ pan={x:0,y:0}; drawGraph(); }
+
+function dijkstra(src,dst){
+  const dist = Array(NODES.length).fill(Infinity);
+  const prev = Array(NODES.length).fill(-1);
+  const visited = Array(NODES.length).fill(false);
+  dist[src]=0;
+  for(let i=0;i<NODES.length;i++){
+    let u=-1;
+    for(let j=0;j<NODES.length;j++) if(!visited[j]&&(u===-1||dist[j]<dist[u])) u=j;
+    if(u===-1||dist[u]===Infinity) break;
+    visited[u]=true;
+    EDGES.forEach(e=>{
+      if(e.from===u){
+        const nd=dist[u]+e.dist;
+        if(nd<dist[e.to]){dist[e.to]=nd;prev[e.to]=u;}
+      }
+    });
+  }
+  const path=[];
+  for(let at=dst;at!==-1;at=prev[at]) path.unshift(at);
+  if(path[0]!==src) return [];
+  return path;
+}
+
+function calcRoute(){
+  const from = parseInt((document.getElementById('routeFrom')||{value:'0'}).value);
+  const to = parseInt((document.getElementById('routeTo')||{value:'4'}).value);
+  highlightedPath = dijkstra(from,to);
+  if(routeCtx) drawGraph();
+  // Update panel
+  if(highlightedPath.length<2){
+    document.getElementById('routeDist').textContent='No alcanzable';
+    document.getElementById('routeCost').textContent='—';
+    document.getElementById('routeTime').textContent='—';
+    document.getElementById('routeNodes').textContent='—';
+    document.getElementById('routeSteps').innerHTML='<p style="color:var(--danger)">Ruta no encontrada.</p>';
+    return;
+  }
+  let totalDist=0,totalCost=0;
+  for(let i=0;i<highlightedPath.length-1;i++){
+    const u=highlightedPath[i],v=highlightedPath[i+1];
+    const edge = EDGES.find(e=>e.from===u&&e.to===v);
+    if(edge){totalDist+=edge.dist;totalCost+=edge.cost;}
+  }
+  document.getElementById('routeDist').textContent=totalDist+' km';
+  document.getElementById('routeCost').textContent='Bs '+totalCost;
+  document.getElementById('routeTime').textContent=Math.round(totalDist*3.5)+' min (est.)';
+  document.getElementById('routeNodes').textContent=highlightedPath.length+' nodos';
+  let stepsHTML='';
+  highlightedPath.forEach((nid,idx)=>{
+    const n=NODES[nid];
+    const cls=idx===0?'node-origin':idx===highlightedPath.length-1?'node-dest':'node-mid';
+    const icon=idx===0?'🟢':idx===highlightedPath.length-1?'🔴':'🔵';
+    stepsHTML+=`<div class="route-step"><div class="route-node-dot ${cls}">${idx+1}</div><div class="route-step-info"><p>${icon} ${n.label}</p><span>${n.sub}</span></div></div>`;
+  });
+  document.getElementById('routeSteps').innerHTML=stepsHTML;
+}
+
+function drawGraph(){
+  if(!routeCtx||!routeCanvas) return;
+  const W=routeCanvas.width, H=routeCanvas.height;
+  const ctx=routeCtx;
+  ctx.clearRect(0,0,W,H);
+  // Background
+  ctx.fillStyle='#F8FAFD';
+  ctx.fillRect(0,0,W,H);
+  // Grid
+  ctx.strokeStyle='#E8EDF5';
+  ctx.lineWidth=1;
+  for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x+pan.x%40,0);ctx.lineTo(x+pan.x%40,H);ctx.stroke();}
+  for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y+pan.y%40);ctx.lineTo(W,y+pan.y%40);ctx.stroke();}
+
+  const px=n=>n.x*W+pan.x, py=n=>n.y*H+pan.y;
+
+  // Draw edges
+  EDGES.forEach(e=>{
+    const fn=NODES[e.from], tn=NODES[e.to];
+    const inPath = highlightedPath.length>1 && highlightedPath.some((v,i)=>i<highlightedPath.length-1&&v===e.from&&highlightedPath[i+1]===e.to);
+    ctx.beginPath();
+    ctx.moveTo(px(fn),py(fn));
+    // curve
+    const mx=(px(fn)+px(tn))/2, my=(py(fn)+py(tn))/2-24;
+    ctx.quadraticCurveTo(mx,my,px(tn),py(tn));
+    ctx.strokeStyle=inPath?'#1A7A4A':'#C8D3E6';
+    ctx.lineWidth=inPath?3.5:1.5;
+    if(!inPath){ctx.setLineDash([5,4]);}else{ctx.setLineDash([]);}
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // Arrow
+    const t=0.85;
+    const ax=bezierPt(px(fn),mx,px(tn),t), ay=bezierPt(py(fn),my,py(tn),t);
+    const ax2=bezierPt(px(fn),mx,px(tn),t+0.05), ay2=bezierPt(py(fn),my,py(tn),t+0.05);
+    drawArrow(ctx,ax,ay,ax2,ay2,inPath?'#1A7A4A':'#A0AABF',inPath?7:5);
+    // Label
+    const lx=bezierPt(px(fn),mx,px(tn),0.5), ly=bezierPt(py(fn),my,py(tn),0.5)-6;
+    ctx.fillStyle=inPath?'#1A7A4A':'#8899BB';
+    ctx.font=`${inPath?'600 ':''} ${inPath?12:10}px Plus Jakarta Sans,sans-serif`;
+    ctx.textAlign='center';
+    ctx.fillText(e.dist+'km · Bs'+e.cost, lx, ly);
+  });
+
+  // Draw nodes
+  NODES.forEach(n=>{
+    const x=px(n), y=py(n);
+    const inPath=highlightedPath.includes(n.id);
+    const isOrig=highlightedPath[0]===n.id, isDest=highlightedPath[highlightedPath.length-1]===n.id;
+    const r=inPath?24:19;
+    // Shadow
+    ctx.shadowColor='rgba(0,0,0,0.13)';
+    ctx.shadowBlur=10;
+    ctx.beginPath();
+    ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle=isOrig?'#1A7A4A':isDest?'#C0392B':inPath?'#2E6DB4':n.color;
+    ctx.fill();
+    ctx.shadowBlur=0;
+    // Border
+    ctx.strokeStyle='#fff';
+    ctx.lineWidth=2.5;
+    ctx.stroke();
+    // Icon
+    ctx.fillStyle='#fff';
+    ctx.font=`bold ${inPath?11:10}px Plus Jakarta Sans,sans-serif`;
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillText(n.id,x,y);
+    // Label
+    ctx.fillStyle=inPath?'#0F2C4E':'#6B7280';
+    ctx.font=`${inPath?'600 ':''} ${inPath?12:11}px Plus Jakarta Sans,sans-serif`;
+    ctx.textBaseline='top';
+    ctx.fillText(n.label,x,y+r+5);
+  });
+}
+
+function bezierPt(p0,p1,p2,t){ return (1-t)*(1-t)*p0+2*(1-t)*t*p1+t*t*p2; }
+function drawArrow(ctx,x1,y1,x2,y2,color,size){
+  const angle=Math.atan2(y2-y1,x2-x1);
+  ctx.fillStyle=color;
+  ctx.beginPath();
+  ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-size*Math.cos(angle-0.45),y2-size*Math.sin(angle-0.45));
+  ctx.lineTo(x2-size*Math.cos(angle+0.45),y2-size*Math.sin(angle+0.45));
+  ctx.closePath();
+  ctx.fill();
+}
+
+// ── INIT ──
+renderProducts(products);
+// Load chart.js dynamically
+const chartScript=document.createElement('script');
+chartScript.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+chartScript.onload=()=>{ initMainChart(); };
+document.head.appendChild(chartScript);
+
+// ══════════════════════════════════════
+// SIGMAC — AUTH & CREDENTIALS SYSTEM
+// ══════════════════════════════════════
+
+// ── LOGIN conectado a Spring Boot API ──
+let currentUser = null;
+
+// ── AUTO-FILL DEMO ──
+function fillLogin(user, pass){
+  document.getElementById('loginUser').value = user;
+  document.getElementById('loginPass').value = pass;
+  document.getElementById('loginUser').focus();
+}
+
+// ── LOGIN ──
+async function doLogin(){
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  const uerr = document.getElementById('loginUserErr');
+  const perr = document.getElementById('loginPassErr');
+  document.getElementById('loginUser').classList.remove('lerror');
+  document.getElementById('loginPass').classList.remove('lerror');
+  uerr.classList.remove('show');
+  perr.classList.remove('show');
+
+  try {
+    const res = await fetch('http://localhost:8080/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: u, password: p })
+    });
+
+    if (!res.ok) {
+      const msg = await res.text();
+      if (msg === 'Usuario no encontrado') {
+        document.getElementById('loginUser').classList.add('lerror');
+        uerr.textContent = 'Usuario no encontrado';
+        uerr.classList.add('show');
+      } else {
+        document.getElementById('loginPass').classList.add('lerror');
+        perr.textContent = 'Contraseña incorrecta';
+        perr.classList.add('show');
+      }
+      return;
+    }
+
+    const data = await res.json();
+    currentUser = {
+      username: data.username,
+      name:     data.nombre,
+      short:    data.nombre.split(' ')[0],
+      initials: data.iniciales,
+      role:     data.rol,
+      color:    data.color,
+      pass:     data.password
+    };
+    applyUserToUI();
+    const ls = document.getElementById('loginScreen');
+    ls.style.transition = 'opacity 0.4s';
+    ls.style.opacity = '0';
+    setTimeout(()=>{ ls.style.display='none'; }, 400);
+
+  } catch(e) {
+    uerr.textContent = 'No se pudo conectar al servidor (¿Spring Boot está corriendo?)';
+    uerr.classList.add('show');
+  }
+}
+
+function applyUserToUI(){
+  if(!currentUser) return;
+  // Header chip
+  document.getElementById('headerAvatar').textContent = currentUser.initials;
+  document.getElementById('headerAvatar').style.background = currentUser.color;
+  document.getElementById('headerUserName').textContent = currentUser.short;
+  // Sidebar user
+  document.querySelector('.user-avatar').textContent = currentUser.initials;
+  document.querySelector('.user-avatar').style.background = currentUser.color;
+  document.querySelector('.user-info p').textContent = currentUser.name;
+  document.querySelector('.user-info span').textContent = currentUser.role;
+  // Hero
+  const hw = document.getElementById('heroWelcome');
+  if(hw) hw.textContent = 'Bienvenido, ' + currentUser.name.split(' ')[0];
+}
+
+// ── LOGOUT ──
+function doLogout(){
+  currentUser = null;
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+  const ls = document.getElementById('loginScreen');
+  ls.style.display = 'flex';
+  ls.style.opacity = '0';
+  setTimeout(()=>{ ls.style.transition='opacity 0.3s'; ls.style.opacity='1'; }, 10);
+}
+
+// ── CHANGE CREDENTIALS MODAL ──
+function openCredModal(){
+  if(!currentUser){ showToastSafe('Inicie sesión primero'); return; }
+  document.getElementById('modalAvatar').textContent = currentUser.initials;
+  document.getElementById('modalAvatar').style.background = currentUser.color;
+  document.getElementById('modalFullName').textContent = currentUser.name;
+  document.getElementById('modalRole').textContent = currentUser.role;
+  document.getElementById('modalCurrentUser').value = currentUser.username;
+  document.getElementById('modalNewUser').value = '';
+  document.getElementById('modalCurrentPass').value = '';
+  document.getElementById('modalNewPass').value = '';
+  document.getElementById('modalConfirmPass').value = '';
+  document.getElementById('credModal').classList.add('show');
+}
+
+function closeCredModal(){
+  document.getElementById('credModal').classList.remove('show');
+}
+
+function saveCredentials(){
+  const currentPass = document.getElementById('modalCurrentPass').value;
+  const newUser = document.getElementById('modalNewUser').value.trim();
+  const newPass = document.getElementById('modalNewPass').value;
+  const confirmPass = document.getElementById('modalConfirmPass').value;
+
+  if(!currentPass){
+    showToastSafe('⚠️ Ingrese su contraseña actual para confirmar los cambios');
+    return;
+  }
+  if(currentPass !== currentUser.pass){
+    showToastSafe('⚠️ La contraseña actual es incorrecta');
+    return;
+  }
+
+  let changed = false;
+
+  // Change username
+  if(newUser && newUser !== currentUser.username){
+    if(USERS[newUser]){
+      showToastSafe('⚠️ Ese nombre de usuario ya está en uso');
+      return;
+    }
+    USERS[newUser] = {...USERS[currentUser.username]};
+    delete USERS[currentUser.username];
+    currentUser.username = newUser;
+    changed = true;
+  }
+
+  // Change password
+  if(newPass){
+    if(newPass.length < 6){
+      showToastSafe('⚠️ La contraseña debe tener al menos 6 caracteres');
+      return;
+    }
+    if(newPass !== confirmPass){
+      showToastSafe('⚠️ Las contraseñas nuevas no coinciden');
+      return;
+    }
+    USERS[currentUser.username].pass = newPass;
+    currentUser.pass = newPass;
+    changed = true;
+  }
+
+  if(!changed){
+    showToastSafe('ℹ️ No se realizaron cambios');
+    closeCredModal();
+    return;
+  }
+
+  USERS[currentUser.username] = {...USERS[currentUser.username], ...currentUser};
+  applyUserToUI();
+  closeCredModal();
+  showToastSafe('✓ Credenciales actualizadas correctamente');
+}
+
+// Close modal clicking outside
+document.getElementById('credModal').addEventListener('click', function(e){
+  if(e.target === this) closeCredModal();
+});
+
+// Keyboard ESC closes modal
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeCredModal();
+});
+
+// Safe toast (works even before Chart.js loads)
+function showToastSafe(msg){
+  try{ showToast(msg); } catch(e){
+    const t = document.getElementById('toast');
+    if(t){ document.getElementById('toastMsg').textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800); }
+  }
+}
+
+// Keyboard Enter on login
+document.addEventListener('DOMContentLoaded', function(){
+  const lp = document.getElementById('loginPass');
+  if(lp) lp.addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+  const lu = document.getElementById('loginUser');
+  if(lu) lu.addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('loginPass').focus(); });
+});
+
+</script>
+</body>
+</html>
