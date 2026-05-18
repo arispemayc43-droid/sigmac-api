@@ -1065,7 +1065,7 @@ function showPage(id, navEl){
   if(id==='materiales'){ renderProducts(products); }
   if(id==='costos'){ initCostosCharts(); }
   if(id==='dashboard'){ initMainChart(); }
-  if(id==='rutas'){ initRouteGraph(); }
+  if(id==='rutas'){ initRouteGraph(); setTimeout(initLeafletMap, 400); }
 }
 
 // ── TOAST ──
