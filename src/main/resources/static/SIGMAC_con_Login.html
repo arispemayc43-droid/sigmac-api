@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 :root {
   --primary: #0F2C4E;
@@ -772,59 +774,56 @@ textarea{resize:vertical;min-height:80px;}
   <!-- ══════════════════ RUTAS ÓPTIMAS ══════════════════ -->
   <div class="content" id="page-rutas">
     <div class="page-header">
-      <div><p class="page-title">Rutas Óptimas</p><p class="page-sub">Optimización de distribución de materiales mediante grafos dirigidos</p></div>
-      <button class="btn-primary" onclick="calcRoute()"><i class="ti ti-route"></i> Calcular Ruta Óptima</button>
+      <div><p class="page-title">Rutas Óptimas</p><p class="page-sub">Optimización de distribución de materiales — haga clic en el mapa para seleccionar destino</p></div>
+      <button class="btn-primary" onclick="resetMapRoute()"><i class="ti ti-zoom-reset"></i> Limpiar ruta</button>
     </div>
 
-    <!-- Controles -->
     <div class="card" style="padding:16px;">
       <div class="route-controls">
-        <div class="route-select-wrap"><label>Origen</label><select id="routeFrom" onchange="calcRoute()"><option value="0">Almacén Central (La Paz)</option><option value="1">Ferretería El Constructor</option><option value="2">Distribuidora PLASTIBOL</option><option value="3">Electro Andina</option></select></div>
-        <i class="ti ti-arrow-right" style="font-size:22px;color:var(--muted);margin-top:16px;"></i>
-        <div class="route-select-wrap"><label>Destino</label><select id="routeTo" onchange="calcRoute()"><option value="4">Obra Central Cochabamba</option><option value="5">Edificio Norte (El Alto)</option><option value="6">Residencial Sur (Calacoto)</option><option value="7">Puente Río Choqueyapu</option></select></div>
-        <div style="margin-left:auto;display:flex;gap:10px;margin-top:16px;">
-          <button class="btn-outline" onclick="resetRouteView()"><i class="ti ti-zoom-reset"></i> Reiniciar vista</button>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);">
-            <span style="display:inline-block;width:16px;height:3px;background:var(--success);border-radius:2px"></span>Ruta óptima
-            <span style="display:inline-block;width:16px;height:3px;background:var(--border);border-radius:2px"></span>Otras rutas
-          </div>
+        <div class="route-select-wrap">
+          <label>Seleccionar Origen</label>
+          <select id="mapRouteFrom" onchange="updateOriginMarker()">
+            <option value="0">Almacén Gonzales — Av. Ayacucho y Av. Aroma</option>
+            <option value="1">Almacén García — Av. Blanco Galindo y Av. Perú</option>
+          </select>
         </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:16px;">
+          <span style="display:inline-block;width:16px;height:3px;background:var(--success);border-radius:2px"></span>Origen
+          <span style="display:inline-block;width:16px;height:3px;background:var(--danger);border-radius:2px"></span>Destino
+          <span style="display:inline-block;width:16px;height:3px;background:#2E6DB4;border-radius:2px"></span>Ruta óptima
+        </div>
+        <div id="mapInstruction" style="margin-left:auto;font-size:12px;color:var(--muted);margin-top:16px;"><i class="ti ti-map-pin"></i> Haga clic en el mapa para marcar el destino</div>
       </div>
     </div>
 
     <div style="display:grid;grid-template-columns:1.8fr 1fr;gap:14px;align-items:start;">
-      <!-- Canvas Grafo -->
       <div>
-        <canvas id="routeCanvas"></canvas>
-        <p style="font-size:11px;color:var(--muted);margin-top:6px;text-align:center;"><i class="ti ti-hand-grab" style="vertical-align:-2px"></i> Los nodos son interactivos — haga clic para seleccionarlos</p>
+        <div id="leafletMap" style="width:100%;height:460px;border-radius:12px;border:1px solid var(--border);"></div>
+        <p style="font-size:11px;color:var(--muted);margin-top:6px;text-align:center;"><i class="ti ti-map-pin" style="vertical-align:-2px"></i> Haga clic en cualquier punto de Cochabamba para calcular la ruta óptima</p>
       </div>
 
-      <!-- Panel info ruta -->
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <!-- Resumen -->
         <div class="card" style="padding:16px;">
           <div class="card-title" style="margin-bottom:12px;display:flex;align-items:center;gap:8px;"><i class="ti ti-route" style="color:var(--primary-light)"></i> Ruta Óptima Calculada</div>
-          <div id="routeSummary" style="display:flex;flex-direction:column;gap:6px;">
-            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Distancia total</span><strong id="routeDist" style="font-size:13px;">-- km</strong></div>
-            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Costo transporte</span><strong id="routeCost" style="font-size:13px;color:var(--accent)">Bs --</strong></div>
-            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Tiempo estimado</span><strong id="routeTime" style="font-size:13px;">-- min</strong></div>
-            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Nodos en ruta</span><strong id="routeNodes" style="font-size:13px;">--</strong></div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Distancia total</span><strong id="mapRouteDist" style="font-size:13px;">-- km</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Costo transporte</span><strong id="mapRouteCost" style="font-size:13px;color:var(--accent)">Bs --</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:8px;background:var(--surface);border-radius:8px;"><span style="font-size:12px;color:var(--muted);">Tiempo estimado</span><strong id="mapRouteTime" style="font-size:13px;">-- min</strong></div>
           </div>
         </div>
-        <!-- Pasos -->
+
         <div class="route-info-panel">
-          <div class="card-title" style="margin-bottom:10px;display:flex;align-items:center;gap:8px;"><i class="ti ti-list-check" style="color:var(--success)"></i> Pasos de la ruta</div>
-          <div id="routeSteps">
-            <p style="font-size:12.5px;color:var(--muted);">Seleccione origen y destino para calcular la ruta óptima.</p>
+          <div class="card-title" style="margin-bottom:10px;display:flex;align-items:center;gap:8px;"><i class="ti ti-list-check" style="color:var(--success)"></i> Detalles de la ruta</div>
+          <div id="mapRouteSteps">
+            <p style="font-size:12.5px;color:var(--muted);">Seleccione un origen y haga clic en el mapa para calcular la ruta.</p>
           </div>
         </div>
-        <!-- Tabla de aristas -->
-        <div class="card">
-          <div class="card-header"><span class="card-title">Conexiones del grafo</span></div>
-          <table>
-            <thead><tr><th>Desde</th><th>Hacia</th><th>Dist.</th><th>Costo Bs</th></tr></thead>
-            <tbody id="edgesTable"></tbody>
-          </table>
+
+        <div class="card" style="padding:16px;">
+          <div class="card-title" style="margin-bottom:10px;display:flex;align-items:center;gap:8px;"><i class="ti ti-grid-3x3" style="color:var(--primary-light)"></i> Matriz de Adyacencia</div>
+          <div id="booleMatrix" style="font-size:11px;overflow-x:auto;">
+            <p style="color:var(--muted);font-size:12px;">Calcule una ruta para ver la matriz.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1561,6 +1560,148 @@ document.addEventListener('DOMContentLoaded', function(){
   const lu = document.getElementById('loginUser');
   if(lu) lu.addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('loginPass').focus(); });
 });
+
+// ══════════════════════════════════════
+// MAPA LEAFLET — RUTAS ÓPTIMAS
+// ══════════════════════════════════════
+
+const MAP_ORIGINS = [
+  { name: 'Almacén Gonzales', address: 'Av. Ayacucho y Av. Aroma', lat: -17.3932, lng: -66.1568, color: '#1A7A4A' },
+  { name: 'Almacén García',   address: 'Av. Blanco Galindo y Av. Perú', lat: -17.3780, lng: -66.2050, color: '#0F2C4E' }
+];
+
+let leafletMap = null, originMarker = null, destMarker = null, routeLine = null;
+
+function initLeafletMap() {
+  if (leafletMap) return;
+  const mapDiv = document.getElementById('leafletMap');
+  if (!mapDiv) return;
+
+  leafletMap = L.map('leafletMap').setView([-17.3895, -66.1568], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(leafletMap);
+
+  updateOriginMarker();
+
+  leafletMap.on('click', function(e) {
+    placeDestMarker(e.latlng.lat, e.latlng.lng);
+  });
+
+  setTimeout(() => leafletMap.invalidateSize(), 300);
+}
+
+function updateOriginMarker() {
+  if (!leafletMap) return;
+  const idx = parseInt(document.getElementById('mapRouteFrom').value);
+  const origin = MAP_ORIGINS[idx];
+
+  if (originMarker) leafletMap.removeLayer(originMarker);
+
+  const greenIcon = L.divIcon({
+    html: `<div style="background:${origin.color};color:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.3);">O${idx+1}</div>`,
+    className: '', iconSize: [36, 36], iconAnchor: [18, 18]
+  });
+
+  originMarker = L.marker([origin.lat, origin.lng], { icon: greenIcon })
+    .addTo(leafletMap)
+    .bindPopup(`<b>${origin.name}</b><br>${origin.address}`)
+    .openPopup();
+
+  if (destMarker) calcMapRoute();
+}
+
+function placeDestMarker(lat, lng) {
+  if (destMarker) leafletMap.removeLayer(destMarker);
+
+  const redIcon = L.divIcon({
+    html: `<div style="background:#C0392B;color:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.3);">D</div>`,
+    className: '', iconSize: [36, 36], iconAnchor: [18, 18]
+  });
+
+  destMarker = L.marker([lat, lng], { icon: redIcon })
+    .addTo(leafletMap)
+    .bindPopup('<b>Destino seleccionado</b><br>Lat: ' + lat.toFixed(4) + ', Lng: ' + lng.toFixed(4))
+    .openPopup();
+
+  calcMapRoute();
+}
+
+function calcMapRoute() {
+  if (!originMarker || !destMarker) return;
+
+  const idx = parseInt(document.getElementById('mapRouteFrom').value);
+  const origin = MAP_ORIGINS[idx];
+  const destLat = destMarker.getLatLng().lat;
+  const destLng = destMarker.getLatLng().lng;
+
+  // Calcular distancia real (Haversine)
+  const dist = haversine(origin.lat, origin.lng, destLat, destLng);
+  const costPerKm = 15; // Bs por km
+  const cost = Math.round(dist * costPerKm);
+  const time = Math.round(dist * 3.5);
+
+  // Dibujar línea de ruta
+  if (routeLine) leafletMap.removeLayer(routeLine);
+  routeLine = L.polyline([
+    [origin.lat, origin.lng],
+    [destLat, destLng]
+  ], { color: '#2E6DB4', weight: 5, opacity: 0.8, dashArray: '10,5' }).addTo(leafletMap);
+
+  leafletMap.fitBounds(routeLine.getBounds(), { padding: [40, 40] });
+
+  // Actualizar panel
+  document.getElementById('mapRouteDist').textContent = dist.toFixed(2) + ' km';
+  document.getElementById('mapRouteCost').textContent = 'Bs ' + cost;
+  document.getElementById('mapRouteTime').textContent = time + ' min (est.)';
+
+  document.getElementById('mapRouteSteps').innerHTML = `
+    <div class="route-step">
+      <div class="route-node-dot" style="background:#1A7A4A;color:#fff;">1</div>
+      <div class="route-step-info"><p>🟢 ${origin.name}</p><span>${origin.address}</span></div>
+    </div>
+    <div class="route-step">
+      <div class="route-node-dot" style="background:#C0392B;color:#fff;">2</div>
+      <div class="route-step-info"><p>🔴 Destino seleccionado</p><span>Lat: ${destLat.toFixed(4)}, Lng: ${destLng.toFixed(4)}</span></div>
+    </div>
+  `;
+
+  // Matriz de adyacencia simple
+  const names = [origin.name.split(' ')[1], 'Destino'];
+  document.getElementById('booleMatrix').innerHTML = `
+    <table style="border-collapse:collapse;width:100%;font-size:11px;">
+      <thead><tr><th style="border:1px solid var(--border);padding:4px;background:var(--surface);"></th>
+        ${names.map(n=>`<th style="border:1px solid var(--border);padding:4px;background:var(--surface);">${n}</th>`).join('')}
+      </tr></thead>
+      <tbody>
+        <tr><td style="border:1px solid var(--border);padding:4px;font-weight:600;background:var(--surface);">${names[0]}</td><td style="border:1px solid var(--border);padding:4px;text-align:center;">0</td><td style="border:1px solid var(--border);padding:4px;text-align:center;color:var(--success);font-weight:700;">1</td></tr>
+        <tr><td style="border:1px solid var(--border);padding:4px;font-weight:600;background:var(--surface);">${names[1]}</td><td style="border:1px solid var(--border);padding:4px;text-align:center;">0</td><td style="border:1px solid var(--border);padding:4px;text-align:center;">0</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:10px;color:var(--muted);margin-top:6px;">Distancia: ${dist.toFixed(2)} km · Costo: Bs ${cost}</p>
+  `;
+}
+
+function haversine(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+            Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*
+            Math.sin(dLng/2)*Math.sin(dLng/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function resetMapRoute() {
+  if (destMarker) { leafletMap.removeLayer(destMarker); destMarker = null; }
+  if (routeLine) { leafletMap.removeLayer(routeLine); routeLine = null; }
+  document.getElementById('mapRouteDist').textContent = '-- km';
+  document.getElementById('mapRouteCost').textContent = 'Bs --';
+  document.getElementById('mapRouteTime').textContent = '-- min';
+  document.getElementById('mapRouteSteps').innerHTML = '<p style="font-size:12.5px;color:var(--muted);">Seleccione un origen y haga clic en el mapa para calcular la ruta.</p>';
+  document.getElementById('booleMatrix').innerHTML = '<p style="color:var(--muted);font-size:12px;">Calcule una ruta para ver la matriz.</p>';
+}
 
 </script>
 </body>
