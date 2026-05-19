@@ -1628,7 +1628,7 @@ function placeDestMarker(lat, lng) {
   calcMapRoute();
 }
 
-function calcMapRoute() {
+async function calcMapRoute() {
   if (!originMarker || !destMarker) return;
 
   const idx = parseInt(document.getElementById('mapRouteFrom').value);
@@ -1636,51 +1636,89 @@ function calcMapRoute() {
   const destLat = destMarker.getLatLng().lat;
   const destLng = destMarker.getLatLng().lng;
 
-  // Calcular distancia real (Haversine)
-  const dist = haversine(origin.lat, origin.lng, destLat, destLng);
-  const costPerKm = 15; // Bs por km
-  const cost = Math.round(dist * costPerKm);
-  const time = Math.round(dist * 3.5);
-
-  // Dibujar línea de ruta
+  // Dibujar línea provisional
   if (routeLine) leafletMap.removeLayer(routeLine);
   routeLine = L.polyline([
     [origin.lat, origin.lng],
     [destLat, destLng]
   ], { color: '#2E6DB4', weight: 5, opacity: 0.8, dashArray: '10,5' }).addTo(leafletMap);
-
   leafletMap.fitBounds(routeLine.getBounds(), { padding: [40, 40] });
 
-  // Actualizar panel
-  document.getElementById('mapRouteDist').textContent = dist.toFixed(2) + ' km';
-  document.getElementById('mapRouteCost').textContent = 'Bs ' + cost;
-  document.getElementById('mapRouteTime').textContent = time + ' min (est.)';
+  document.getElementById('mapRouteSteps').innerHTML = '<p style="color:var(--muted);">Calculando ruta...</p>';
 
-  document.getElementById('mapRouteSteps').innerHTML = `
-    <div class="route-step">
-      <div class="route-node-dot" style="background:#1A7A4A;color:#fff;">1</div>
-      <div class="route-step-info"><p>🟢 ${origin.name}</p><span>${origin.address}</span></div>
-    </div>
-    <div class="route-step">
-      <div class="route-node-dot" style="background:#C0392B;color:#fff;">2</div>
-      <div class="route-step-info"><p>🔴 Destino seleccionado</p><span>Lat: ${destLat.toFixed(4)}, Lng: ${destLng.toFixed(4)}</span></div>
-    </div>
-  `;
+  try {
+    const res = await fetch('/api/rutas/calcular', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        origenId: idx === 0 ? 'O1' : 'O2',
+        origenLat: origin.lat,
+        origenLng: origin.lng,
+        destinoLat: destLat,
+        destinoLng: destLng
+      })
+    });
 
-  // Matriz de adyacencia simple
-  const names = [origin.name.split(' ')[1], 'Destino'];
-  document.getElementById('booleMatrix').innerHTML = `
-    <table style="border-collapse:collapse;width:100%;font-size:11px;">
-      <thead><tr><th style="border:1px solid var(--border);padding:4px;background:var(--surface);"></th>
-        ${names.map(n=>`<th style="border:1px solid var(--border);padding:4px;background:var(--surface);">${n}</th>`).join('')}
-      </tr></thead>
-      <tbody>
-        <tr><td style="border:1px solid var(--border);padding:4px;font-weight:600;background:var(--surface);">${names[0]}</td><td style="border:1px solid var(--border);padding:4px;text-align:center;">0</td><td style="border:1px solid var(--border);padding:4px;text-align:center;color:var(--success);font-weight:700;">1</td></tr>
-        <tr><td style="border:1px solid var(--border);padding:4px;font-weight:600;background:var(--surface);">${names[1]}</td><td style="border:1px solid var(--border);padding:4px;text-align:center;">0</td><td style="border:1px solid var(--border);padding:4px;text-align:center;">0</td></tr>
-      </tbody>
-    </table>
-    <p style="font-size:10px;color:var(--muted);margin-top:6px;">Distancia: ${dist.toFixed(2)} km · Costo: Bs ${cost}</p>
-  `;
+    const data = await res.json();
+    const cu = data.costoUniforme;
+    const gr = data.greedy;
+    const ae = data.aEstrella;
+
+    const dist = haversine(origin.lat, origin.lng, destLat, destLng);
+    const cost = Math.round(dist * 15);
+    const time = Math.round(dist * 3.5);
+
+    document.getElementById('mapRouteDist').textContent = dist.toFixed(2) + ' km';
+    document.getElementById('mapRouteCost').textContent = 'Bs ' + cost;
+    document.getElementById('mapRouteTime').textContent = time + ' min (est.)';
+
+    document.getElementById('mapRouteSteps').innerHTML = `
+      <div class="route-step">
+        <div class="route-node-dot" style="background:#1A7A4A;color:#fff;">1</div>
+        <div class="route-step-info"><p>🟢 ${origin.name}</p><span>${origin.address}</span></div>
+      </div>
+      <div class="route-step">
+        <div class="route-node-dot" style="background:#C0392B;color:#fff;">2</div>
+        <div class="route-step-info"><p>🔴 Destino</p><span>Lat: ${destLat.toFixed(4)}, Lng: ${destLng.toFixed(4)}</span></div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;border-top:1px solid var(--border);padding-top:8px;">
+        <p style="font-weight:600;margin-bottom:6px;color:var(--primary);">Comparación de Algoritmos</p>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:flex;justify-content:space-between;padding:4px 8px;background:var(--surface);border-radius:6px;">
+            <span>⚖️ Costo Uniforme</span><strong>${cu.ruta.join(' → ')}</strong><span style="color:var(--muted)">${(cu.tiempo/1000000).toFixed(2)}ms</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:4px 8px;background:var(--surface);border-radius:6px;">
+            <span>⚡ Greedy</span><strong>${gr.ruta.join(' → ')}</strong><span style="color:var(--muted)">${(gr.tiempo/1000000).toFixed(2)}ms</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:4px 8px;background:#e8f5e9;border-radius:6px;">
+            <span>🌟 A* (Óptimo)</span><strong>${ae.ruta.join(' → ')}</strong><span style="color:var(--success)">${(ae.tiempo/1000000).toFixed(2)}ms</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Matriz de adyacencia
+    const nodos = ['O1','N1','N2','N3','N4','DEST'];
+    const conexiones = [['O1','N1'],['O1','N3'],['N1','N2'],['N1','DEST'],['N2','DEST'],['N3','N2'],['N3','DEST'],['N4','N2'],['N4','DEST']];
+    let tabla = `<table style="border-collapse:collapse;width:100%;font-size:10px;"><thead><tr><th style="border:1px solid var(--border);padding:3px;background:var(--surface);"></th>${nodos.map(n=>`<th style="border:1px solid var(--border);padding:3px;background:var(--surface);">${n}</th>`).join('')}</tr></thead><tbody>`;
+    nodos.forEach(fila => {
+      tabla += `<tr><td style="border:1px solid var(--border);padding:3px;font-weight:600;background:var(--surface);">${fila}</td>`;
+      nodos.forEach(col => {
+        const tiene = conexiones.some(c => c[0]===fila && c[1]===col);
+        tabla += `<td style="border:1px solid var(--border);padding:3px;text-align:center;${tiene?'color:var(--success);font-weight:700;':''}">${tiene?'1':'0'}</td>`;
+      });
+      tabla += '</tr>';
+    });
+    tabla += '</tbody></table>';
+    document.getElementById('booleMatrix').innerHTML = tabla;
+
+  } catch(e) {
+    const dist = haversine(origin.lat, origin.lng, destLat, destLng);
+    document.getElementById('mapRouteDist').textContent = dist.toFixed(2) + ' km';
+    document.getElementById('mapRouteCost').textContent = 'Bs ' + Math.round(dist * 15);
+    document.getElementById('mapRouteTime').textContent = Math.round(dist * 3.5) + ' min';
+    document.getElementById('mapRouteSteps').innerHTML = '<p style="color:var(--danger);font-size:12px;">No se pudo conectar con el servidor Java.</p>';
+  }
 }
 
 function haversine(lat1, lng1, lat2, lng2) {
