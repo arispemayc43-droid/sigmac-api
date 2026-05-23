@@ -10,36 +10,33 @@ import java.util.*;
 @CrossOrigin(origins = "*")
 public class RutasController {
 
-    private Grafo construirGrafo(double origenLat, double origenLng, double destinoLat, double destinoLng) {
+    private Grafo construirGrafo(double destinoLat, double destinoLng) {
         Grafo grafo = new Grafo();
 
-        // Nodos origen
         Nodo o1 = new Nodo("O1", "Almacén Gonzales", -17.3932, -66.1568);
         Nodo o2 = new Nodo("O2", "Almacén García", -17.3780, -66.2050);
-
-        // Nodos intermedios (intersecciones clave de Cochabamba)
+        Nodo o3 = new Nodo("O3", "Sucursal Norte", -17.3600, -66.1700);
+        Nodo o4 = new Nodo("O4", "Sucursal Sur", -17.4100, -66.1600);
         Nodo n1 = new Nodo("N1", "Plaza Principal", -17.3941, -66.1561);
         Nodo n2 = new Nodo("N2", "Av. América", -17.3860, -66.1520);
         Nodo n3 = new Nodo("N3", "Av. Heroínas", -17.3900, -66.1600);
         Nodo n4 = new Nodo("N4", "Av. Ballivián", -17.3820, -66.1650);
-
-        // Nodo destino
         Nodo dest = new Nodo("DEST", "Destino", destinoLat, destinoLng);
 
-        // Agregar nodos
-        grafo.agregarNodo(o1);
-        grafo.agregarNodo(o2);
-        grafo.agregarNodo(n1);
-        grafo.agregarNodo(n2);
-        grafo.agregarNodo(n3);
-        grafo.agregarNodo(n4);
+        grafo.agregarNodo(o1); grafo.agregarNodo(o2);
+        grafo.agregarNodo(o3); grafo.agregarNodo(o4);
+        grafo.agregarNodo(n1); grafo.agregarNodo(n2);
+        grafo.agregarNodo(n3); grafo.agregarNodo(n4);
         grafo.agregarNodo(dest);
 
-        // Agregar aristas con costos (km)
         grafo.agregarArista("O1", "N1", 1.2);
         grafo.agregarArista("O1", "N3", 2.1);
         grafo.agregarArista("O2", "N4", 1.8);
         grafo.agregarArista("O2", "N3", 3.2);
+        grafo.agregarArista("O3", "N2", 2.0);
+        grafo.agregarArista("O3", "N1", 2.5);
+        grafo.agregarArista("O4", "N3", 1.5);
+        grafo.agregarArista("O4", "N4", 2.2);
         grafo.agregarArista("N1", "N2", 2.5);
         grafo.agregarArista("N1", "DEST", calcularDistancia(n1, dest));
         grafo.agregarArista("N2", "DEST", calcularDistancia(n2, dest));
@@ -64,12 +61,10 @@ public class RutasController {
     @PostMapping("/calcular")
     public ResponseEntity<?> calcularRuta(@RequestBody Map<String, Object> body) {
         String origenId = (String) body.get("origenId");
-        double origenLat = ((Number) body.get("origenLat")).doubleValue();
-        double origenLng = ((Number) body.get("origenLng")).doubleValue();
         double destinoLat = ((Number) body.get("destinoLat")).doubleValue();
         double destinoLng = ((Number) body.get("destinoLng")).doubleValue();
 
-        Grafo grafo = construirGrafo(origenLat, origenLng, destinoLat, destinoLng);
+        Grafo grafo = construirGrafo(destinoLat, destinoLng);
 
         long t1 = System.nanoTime();
         List<String> rutaCU = CostoUniforme.calcular(grafo, origenId, "DEST");
@@ -88,6 +83,69 @@ public class RutasController {
         result.put("greedy", Map.of("ruta", rutaGreedy, "tiempo", tiempoGreedy));
         result.put("aEstrella", Map.of("ruta", rutaA, "tiempo", tiempoA));
 
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/shortest")
+    public ResponseEntity<?> shortest(@RequestParam double origenLat,
+                                      @RequestParam double origenLng,
+                                      @RequestParam double destinoLat,
+                                      @RequestParam double destinoLng) {
+        Grafo grafo = construirGrafo(destinoLat, destinoLng);
+        Nodo origen = new Nodo("ORIG", "Origen", origenLat, origenLng);
+        grafo.agregarNodo(origen);
+        grafo.agregarArista("ORIG", "N1", calcularDistancia(origen, grafo.getNodo("N1")));
+        grafo.agregarArista("ORIG", "N2", calcularDistancia(origen, grafo.getNodo("N2")));
+
+        List<String> ruta = CostoUniforme.calcular(grafo, "ORIG", "DEST");
+        double dist = calcularDistancia(new Nodo("T", "T", origenLat, origenLng),
+                new Nodo("D", "D", destinoLat, destinoLng));
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("rutaNombres", ruta);
+        result.put("distanciaTotal", dist);
+        result.put("tiempoEstimado", dist * 3.5);
+        result.put("mensaje", "Ruta encontrada exitosamente");
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/bfs")
+    public ResponseEntity<?> bfs(@RequestParam double origenLat,
+                                 @RequestParam double origenLng,
+                                 @RequestParam double destinoLat,
+                                 @RequestParam double destinoLng) {
+        Grafo grafo = construirGrafo(destinoLat, destinoLng);
+        Nodo origen = new Nodo("ORIG", "Origen", origenLat, origenLng);
+        grafo.agregarNodo(origen);
+        grafo.agregarArista("ORIG", "N1", 1.0);
+        grafo.agregarArista("ORIG", "N2", 1.0);
+
+        List<String> ruta = BFS.calcular(grafo, "ORIG", "DEST");
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("rutaNombres", ruta);
+        result.put("distanciaTotal", 0.0);
+        result.put("mensaje", "Ruta encontrada (BFS - grafo no ponderado)");
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/dfs")
+    public ResponseEntity<?> dfs(@RequestParam double origenLat,
+                                 @RequestParam double origenLng,
+                                 @RequestParam double destinoLat,
+                                 @RequestParam double destinoLng) {
+        Grafo grafo = construirGrafo(destinoLat, destinoLng);
+        Nodo origen = new Nodo("ORIG", "Origen", origenLat, origenLng);
+        grafo.agregarNodo(origen);
+        grafo.agregarArista("ORIG", "N1", 1.0);
+        grafo.agregarArista("ORIG", "N2", 1.0);
+
+        List<String> ruta = DFS.calcular(grafo, "ORIG", "DEST");
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("rutaNombres", ruta);
+        result.put("distanciaTotal", 0.0);
+        result.put("mensaje", "Ruta encontrada (DFS - búsqueda en profundidad)");
         return ResponseEntity.ok(result);
     }
 }
