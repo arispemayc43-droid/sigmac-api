@@ -2,8 +2,26 @@ package com.example.sigmacapi.algoritmos;
 
 import java.util.*;
 
+/**
+ * Implementación del algoritmo Greedy (Voraz).
+ * En cada paso selecciona la arista de menor costo sin considerar el camino global.
+ * Complejidad temporal: O(V²)
+ * Complejidad espacial: O(V)
+ *
+ * @author Constructora Gonzales Garcia S.R.L.
+ * @version 1.0
+ */
 public class Greedy {
 
+    /**
+     * Calcula una ruta usando el algoritmo voraz.
+     * No garantiza la ruta óptima global, pero es más rápido.
+     *
+     * @param grafo     Grafo sobre el que se realiza la búsqueda
+     * @param origenId  Identificador del nodo origen
+     * @param destinoId Identificador del nodo destino
+     * @return Lista de IDs de nodos que forman la ruta encontrada
+     */
     public static List<String> calcular(Grafo grafo, String origenId, String destinoId) {
         Map<String, String> padre = new HashMap<>();
         Set<String> visitados = new HashSet<>();
@@ -35,7 +53,6 @@ public class Greedy {
             actual = siguiente;
         }
 
-        // Reconstruir ruta
         String nodo = destinoId;
         while (nodo != null) {
             ruta.add(0, nodo);

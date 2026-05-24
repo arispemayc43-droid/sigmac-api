@@ -2,8 +2,27 @@ package com.example.sigmacapi.algoritmos;
 
 import java.util.*;
 
+/**
+ * Implementación del algoritmo A* (A estrella).
+ * Combina el costo real con una heurística para encontrar la ruta óptima.
+ * Usa la distancia Haversine como heurística geográfica.
+ * Complejidad temporal: O((V + E) log V)
+ * Complejidad espacial: O(V)
+ *
+ * @author Constructora Gonzales Garcia S.R.L.
+ * @version 1.0
+ */
 public class AEstrella {
 
+    /**
+     * Calcula la ruta óptima usando el algoritmo A*.
+     * f(n) = g(n) + h(n) donde g = costo real, h = heurística Haversine.
+     *
+     * @param grafo     Grafo sobre el que se realiza la búsqueda
+     * @param origenId  Identificador del nodo origen
+     * @param destinoId Identificador del nodo destino
+     * @return Lista de IDs de nodos que forman la ruta óptima
+     */
     public static List<String> calcular(Grafo grafo, String origenId, String destinoId) {
         Nodo destino = grafo.getNodo(destinoId);
         if (destino == null) return new ArrayList<>();
@@ -36,11 +55,17 @@ public class AEstrella {
                 }
             }
         }
-
         return reconstruirRuta(padre, origenId, destinoId);
     }
 
-    // Heurística: distancia en línea recta (Haversine)
+    /**
+     * Calcula la distancia Haversine entre dos nodos como heurística.
+     * La distancia Haversine calcula la distancia en línea recta sobre la esfera terrestre.
+     *
+     * @param a Nodo origen
+     * @param b Nodo destino
+     * @return Distancia en kilómetros
+     */
     private static double heuristica(Nodo a, Nodo b) {
         if (a == null || b == null) return 0;
         final int R = 6371;
@@ -52,7 +77,16 @@ public class AEstrella {
         return R * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1-h));
     }
 
-    private static List<String> reconstruirRuta(Map<String, String> padre, String origen, String destino) {
+    /**
+     * Reconstruye la ruta óptima desde el destino al origen.
+     *
+     * @param padre   Mapa de nodo -> nodo padre
+     * @param origen  Identificador del nodo origen
+     * @param destino Identificador del nodo destino
+     * @return Lista ordenada de IDs desde origen hasta destino
+     */
+    private static List<String> reconstruirRuta(Map<String, String> padre,
+                                                String origen, String destino) {
         List<String> ruta = new ArrayList<>();
         String actual = destino;
         while (actual != null) {
