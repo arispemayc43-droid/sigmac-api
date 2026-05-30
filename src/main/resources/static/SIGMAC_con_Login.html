@@ -1391,7 +1391,7 @@ async function doLogin(){
   perr.classList.remove('show');
 
   try {
-    const res = await fetch('https://sigmac-api-production.up.railway.app/api/auth/login', {
+    const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: u, password: p })
